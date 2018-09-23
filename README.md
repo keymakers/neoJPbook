@@ -38,11 +38,11 @@ $ sudo gem install review
 ## お手伝い
 本プロジェクトは、Githubにてオープンソースで行われているプロジェクトです。あらゆる方からのコメントや貢献、訂正を歓迎いたします。
 
-詳細につきましては、Gitterにてお問い合わせください。
+詳細につきましては、NEO Keymakers Japan[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
 
 ### Pull requestによる貢献
 1. Githubのアカウントを作成
-2. ``リポジトリをフォーク
+2. `neoJPbook`リポジトリをフォーク
 3. 新しいブランチを作成
 4. 内容の変更・追加した点をコミット
 5. 修正した`.re`ファイルごとにpull requestを提出
