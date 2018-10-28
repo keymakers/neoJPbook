@@ -1,0 +1,33 @@
+# Rules for Blockchain
+meta:
+  reviewer:
+    - genm
+  rules:   https://github.com/prh/rules
+
+version: 1
+imports:
+  - ../languages/ja/typo.yml
+  - ../terms/software.yml
+  - ../terms/review.yml
+  - ../terms/trademark.yml
+rules:
+  - expected: Keymakers
+    pattern: Keymekers
+    prh: 警告メッセージのカスタマイズができるよ！
+
+  - expected: 暗号通貨
+    pattern: 仮想通貨
+  - expected: Gas
+    pattern: gas
+  - expected: NEP
+    pattern: Nep
+  - expected: フォルダ
+    pattern: フォルダー
+  - expected: Ethereum
+    pattern: ([eE]theream|[eE]thareum|[eE]thaream)
+  - expected: GUI
+    pattern: gui
+  - expected: GUI
+    pattern: gui
+  - expected: neo-python
+    pattern: neo-Python
