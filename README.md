@@ -55,6 +55,9 @@ $ npm run pdf
 ## お手伝い
 本プロジェクトは、Githubにてオープンソースで行われているプロジェクトです。あらゆる方からのコメントや貢献、訂正を歓迎いたします。
 
+詳細につきましては、NEO Keymakers Japan[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
+
+### Pull requestによる貢献
 
 |  Branch Name | 役割|
 | ---- | ---- |
@@ -64,9 +67,7 @@ $ npm run pdf
 |  Chapter Branch  |執筆者それぞれの作業用ブランチ|
 
 
-詳細につきましては、NEO Keymakers Japan[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
-
-### Pull requestによる貢献
+https://user-images.githubusercontent.com/35296935/47612939-4f16aa80-dac8-11e8-8b4e-768691de77c9.png
 
 それぞれの執筆者はGitHubをForkしてから作成を始めることを前提としています。それぞれ、WRITINGブランチからブランチを切って執筆作業をしていただければと思います。執筆作業完了後、プルリクエストをWRITINGブランチに対して投げてください。
 
