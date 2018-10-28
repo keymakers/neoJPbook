@@ -67,7 +67,7 @@ $ npm run pdf
 |  Chapter Branch  |執筆者それぞれの作業用ブランチ|
 
 
-https://user-images.githubusercontent.com/35296935/47612939-4f16aa80-dac8-11e8-8b4e-768691de77c9.png
+![flow](https://user-images.githubusercontent.com/35296935/47612939-4f16aa80-dac8-11e8-8b4e-768691de77c9.png)
 
 それぞれの執筆者はGitHubをForkしてから作成を始めることを前提としています。それぞれ、WRITINGブランチからブランチを切って執筆作業をしていただければと思います。執筆作業完了後、プルリクエストをWRITINGブランチに対して投げてください。
 
