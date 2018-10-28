@@ -35,6 +35,23 @@ $ sudo gem install review
 ```
 以上で、環境構築は終了です。
 
+## PDFを出力する
+rbenvやnodebrewを利用してRubyやNode.jsの準備をしている前提です。 もしそうではない場合、適宜sudoを補うこと。 Node.jsは4.x系以上が必須です。
+
+graphvizを使ったのでbrew install graphvizとかが必要かもしれません。
+
+準備
+```
+$ gem install bundler
+$ git submodule init
+$ git submodule update
+$ npm install
+```
+出力
+```
+$ npm run pdf
+```
+
 ## お手伝い
 本プロジェクトは、Githubにてオープンソースで行われているプロジェクトです。あらゆる方からのコメントや貢献、訂正を歓迎いたします。
 
