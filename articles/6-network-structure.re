@@ -38,7 +38,7 @@ https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consens
 ** 投票を集め、意思決定のサポート
 
 === 要件調査
-コンセンサスノードになる場合、以下の要件を提出することが求められ、コンセンサスノードページと、オフィシャルページに情報が乗ることになります。
+コンセンサスノードになる場合、次の要件を提出することが求められ、コンセンサスノードページと、オフィシャルページに情報が乗ることになります。
 
 * 組織情報
 ** ウェブサイトもしくはSNSアカウント
@@ -46,7 +46,7 @@ https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consens
 ** 少なくても2/3以上のチームメンバーの写真と詳細
 ** コンタクト（emailアドレスなど）
 * サーバータイプ
-* 以下の課題に対する対応策
+* 次の課題に対する対応策
 ** ノードの安全性
 ** メンテナンス
 ** 長期安定性
@@ -62,12 +62,65 @@ https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consens
 
 == プレーヤー詳細
 === NEO Foundation
-=== NEO Global Development
+Public Key: 024c7b7fb6c310fccf1ba33b082519d82964ea93868d676662d4a59ad548df0e7d
+
+NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能经济）を実現するために開発を行っています。NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立された。City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
+
+twitter: https://twitter.com/neo_blockchain
+facebook: https://www.facebook.com/NEOSmartEcon
+github: https://github.com/neo-project
+
 === CITY OF ZION
+Public Key: 025bdf3f181f53e9696227843950deb72dcd374ded17c057159513c3d0abe20b64
+Website: http://cityofzion.io/
+E-mail: council@cityofzion.io
+
+City of Zionはオープンソース開発、デザイン、翻訳などを行いNEOコアチームとエコシステムを開発しているグループです。
+
 === KPN
+Public Key: 035e819642a8915a2572f972ddbdbe3042ae6437349295edce9bdc3b8884bbf9a3
+Website: https://www.kpn.com
+E-mail: DLT@KPN.com
+
+KPNはオランダに拠点をもつ通信会社です。
+
 === Swisscom
+Swissに拠点をもつ通信会社です。テストネットにノードをもっています。
 
+= ブロック高
+NEOブロックチェーンにおいて、ブロックの生成速度は15〜20秒に1つです。執筆時（2018年11月）で過去に生成されてきたブロックの数は2922556となっています。
 
-= BLOCK高
+= NEOテストネット
+テストネットとは開発者・ユーザーが自由に開発しプログラムをテストすることができる環境です。テストネットで開発する際にもGASと呼ばれる手数料がかかりますが、これは実際のGASではなく価値はありません。テストネットのブロックは完全にメインネットと隔離されています。なので、実際に開発をする際には、まずテストネットでプログラムを検証してからメインネットにデプロイするという手順を取ります。このステップを踏む理由は、メインネットにデプロイされたプログラムはたとえ開発者でも変更することができないためです。
 
-= ブロックタイム
+== テストネットの特徴
+1. 無料でやりとりをすることができる
+2. グローバルな環境で開発できる
+3. ブロックチェーンブラウザーにて簡単に過去の取引をみることができる
+4. スマートコントラクトをデプロイすることができ、誰でも参照することができる
+5. テストネットは商用では使われない
+
+== テストネットに接続する
+http://docs.neo.org/en-us/network/testnet.html
+
+== クライアントをすばやく同期する
+クライアントは使用する実際に使用する前に完全に同期する必要がある。過去のブロックをすべてダウンロードする代わりに必要な部分だけをダウンロードすることで同期をすばやく行うことができる。
+
+=== ステップ1
+@<href>{http://sync.ngd.network/, Offline synchronized packageをダウンロードする}
+
+//image[syncblocks_1][ブロック同期1]{
+}
+
+=== ステップ2
+オフラインパッケージをダウンロードするページで、ネットワークに応じてMainnetもしくはTestnetを選択し、パッケージをダウンロードする。
+
+//image[syncblocks_2][ブロック同期2]{
+}
+
+http://docs.neo.org/en-us/network/syncblocks.html
+
+= ネットワーク・プロトコル
+NEOはP2P（Peer to Peer）ネットワーク構造を採用しています。この構造では、ノードがTCP/IPプロトコルを通じてお互いにやりとりをしあいます。このプロトコルではPeerノードとValidatingノードという2種類のノードがあります。Peerノードは取引やブロックを拡散し受け取り、交換します。一方でValidatingノードはブロックを作り出すことができます。
+
+http://docs.neo.org/en-us/network/network-protocol.html
