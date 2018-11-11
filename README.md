@@ -35,12 +35,41 @@ $ sudo gem install review
 ```
 以上で、環境構築は終了です。
 
+## PDFを出力する
+rbenvやnodebrewを利用してRubyやNode.jsの準備をしている前提です。 もしそうではない場合、適宜sudoを補うこと。 Node.jsは4.x系以上が必須です。
+
+graphvizを使ったのでbrew install graphvizとかが必要かもしれません。
+
+準備
+```
+$ gem install bundler
+$ git submodule init
+$ git submodule update
+$ npm install
+```
+出力
+```
+$ npm run pdf
+```
+
 ## お手伝い
 本プロジェクトは、Githubにてオープンソースで行われているプロジェクトです。あらゆる方からのコメントや貢献、訂正を歓迎いたします。
 
 詳細につきましては、NEO Keymakers Japan[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
 
 ### Pull requestによる貢献
+
+|  Branch Name | 役割|
+| ---- | ---- |
+|  MASTER  |GitHubのトップ用（GitLab Flowのプリプロの位置付けにも活用）|
+|   PUBLISH  |出版バージョンごとにマージ|
+|  WRITING  |執筆者のプルリクエストを受けるブランチ（READMEの編集もここで）|
+|  Chapter Branch  |執筆者それぞれの作業用ブランチ|
+
+![flow](https://user-images.githubusercontent.com/35296935/47613002-905b8a00-dac9-11e8-9307-4e2459093b48.png)
+
+それぞれの執筆者はGitHubをForkしてから作成を始めることを前提としています。それぞれ、WRITINGブランチからブランチを切って執筆作業をしていただければと思います。執筆作業完了後、プルリクエストをWRITINGブランチに対して投げてください。
+
 1. Githubのアカウントを作成
 2. `neoJPbook`リポジトリをフォーク
 3. 新しいブランチを作成
