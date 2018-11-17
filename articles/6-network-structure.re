@@ -204,7 +204,7 @@ virtual machineの作成が完了したら、4つのvartual machineのIP address
 ノードの設定ファイルであるprotocol.jsonを開きます。
 Magicのvalueを修正します。Magicは通常、メッセージのネットワークを識別するために用いられています。Magicはuint型なので、値は[0 - 4294967295]のいずれかをとります。
 
-StandbyValidatorsを修正し、先程保存した4つのパブリックキーの値を入力します。最後にSeedListを修正します。ここでは、以前保存したIP address入力しportは変更を加えないようにします。次のコードを参考にしてください。
+StandbyValidatorsを修正し、さきほど保存した4つのパブリックキーの値を入力します。最後にSeedListを修正します。ここでは、以前保存したIP address入力しportは変更を加えないようにします。次のコードを参考にしてください。
 
 //emlist[configulation]{
 {
@@ -242,4 +242,36 @@ SystemFeeは手数料を表しています。次の作業にかかる手数料�
 
 この設定はSeedList内で変更することができます。
 
-http://docs.neo.org/en-us/network/private-chain/private-chain.html
+その後、4つのバーチャルマシーンで次のコマンドを入力してノードを動かします。ウォレットを開き、コンセンサスプロセスを開始します。
+CLI Command Referenceを参考にしてください。
+
+ノードをスタートする：Dotnet neo-cli.dll
+
+ウォレットを開く：Open wallet wallet1.db3
+
+注意：すべてのノードでwallet1を開くわけではないので、ノードによって番号を変えてください。
+
+コンセンサスをスタートする：Start consensus
+
+上記のコマンドが正常に動作すれば、4つのノードは次のようなコンセンサスプロセスを表示します。
+
+//image[privatechain_8][ブロック同期3]{
+//}
+
+4つのノードは次に見れるように1つの環境が停止しても動き続ける。
+
+//image[privatechain_9][ブロック同期3]{
+//}
+
+== 無料のNEOを手に入れる
+Neo-GUIをインストールし、プライベートブロックチェーンにつなぐために、protocol.jsonを修正します。Walletを開き、左上の文字が0でなく、つぎのように表示されていた場合、クライアントはプライベートチェーンに接続されています。
+
+//image[privatechain_12][ブロック同期3]{
+//}
+
+PCクライアントのwallet1.db3を開き、multi-party signatureアドレスを追加します。その後、protocol.jsonに4つのパブリックキーを入力します。マルチシグのミニマムの鍵数を選択（この場合は3つ）します。
+
+Confirmをクリックしメニューバーのwalletをクリックします。そうすると、コントラクトアドレスに100000000NEOが入っていることを確認することができます。
+
+//image[privatechain_14][ブロック同期3]{
+//}
