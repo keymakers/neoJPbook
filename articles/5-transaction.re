@@ -82,7 +82,7 @@ InvocationTransaction	スマートコントラクトトランザクションの�
 いくつか代表的なトランザクションについて説明します。
 
 MinerTransactionは、各ブロックのTransactionsのリストの最初に格納され、そのブロックの全ての手数料をバリデーターの報酬にします。
-Nonce（uintΩ32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。（@<table>{tx_type_table2}）
+Nonce（uint32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。（@<table>{tx_type_table2}）
 
 //table[tx_type_table2][MinerTransaction]{
 サイズ	フィールド	データ型	意味
