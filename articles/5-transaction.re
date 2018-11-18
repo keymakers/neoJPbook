@@ -1,5 +1,5 @@
 = トランザクション
-#@#担当者:CryptoAge
+#@#担当者:Azusa Taroura
 
 トランザクションとは、ブロックチェーンの取り引きデータや、取り引きそのもののことを指します。
 トランザクションはコンセンサスアルゴリズム（dBFT）を経て、ブロックチェーンに記録されます。
@@ -10,7 +10,7 @@ NEOのネットワークプロトコルはビットコインに似ています�
 == ブロック
 
 トランザクションやアセットなど、ネットワーク全体のデータはブロックチェーンに格納されます。
-ブロックチェーンに格納されているブロックは次のような構造を持ちます。
+ブロックチェーンに格納されているブロックの構造を@<table>{blockdata1}に示します。
 
 //tsize[10,20,10,60]
 //table[blockdata1][ブロック]{
@@ -35,6 +35,7 @@ MerkleRootには全てのトランザクションのハッシュ値が含まれ�
 
 == トランザクションの内容
 
+トランザクションの内容をみてみましょう。（@<table>{tx_table1}）
 トランザクションの内容を大きく示すと、Type, Attributes, Input, Outputとなります。
 その他にもプロトコルやライブラリの中で、Scripts, Witness, Exclusive Dataなどのデータをもつことがあります。
 
@@ -52,7 +53,7 @@ Output				トランザクションの出力
 
 NEOではコインの管理方法として、ビットコインなどでも使用されているUTXO（Unspent Transaction Output）という仕組みを利用しています。
 UTXOとは、ブロックチェーン上でまだ使用されていないトランザクションのアウトプットであり、残高を示します。
-簡単にいうと、取り引きデータから残高を算出する方法になります。
+簡単にいうと、取り引きデータから残高を算出する方法になります。@<img>{utxo}はトランザクションの流れの一例を示しています。
 
 //image[utxo][UTXO]{
 ... utxo ...
@@ -60,7 +61,7 @@ UTXOとは、ブロックチェーン上でまだ使用されていないトラ�
 
 === トランザクションのタイプ（Type）
 
-トランザクションのタイプには次のような種類があります。
+トランザクションのタイプには@<table>{tx_type_table1}のような種類があります。
 
 //tsize[40,60]
 //table[tx_type_table1][トランザクションのタイプ]{
@@ -81,7 +82,7 @@ InvocationTransaction	スマートコントラクトトランザクションの�
 いくつか代表的なトランザクションについて説明します。
 
 MinerTransactionは、各ブロックのTransactionsのリストの最初に格納され、そのブロックの全ての手数料をバリデーターの報酬にします。
-Nonce（uintΩ32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。
+Nonce（uintΩ32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。（@<table>{tx_type_table2}）
 
 //table[tx_type_table2][MinerTransaction]{
 サイズ	フィールド	データ型	意味
@@ -91,7 +92,7 @@ Nonce（uintΩ32）をもち、Nonceの値はハッシュ値の衝突を避け�
 
 アセットの管理者は、IssueTransactionによってブロックチェーンに登録されているアセットを作成し、任意のアドレスへ送ることができます。
 NEOから発行されているアセットの場合、トランザクションの手数料はかかりません。
-IssueTransactionもNonceの値を持ちます。
+IssueTransactionもNonceの値を持ちます。（@<table>{tx_type_table3}）
 
 //table[tx_type_table3][IssueTransaction]{
 サイズ	フィールド	データ型	意味
@@ -99,7 +100,7 @@ IssueTransactionもNonceの値を持ちます。
 4		Nonce	uint32		ランダムな数値
 //}
 
-ClaimTransactionは分配するためのGASをInputとして持ちます。
+ClaimTransactionは分配するためのGASをInputとして持ちます。（@<table>{tx_type_table4}）
 
 //table[tx_type_table4][ClaimTransaction]{
 サイズ	フィールド	データ型	意味
@@ -109,7 +110,8 @@ ClaimTransactionは分配するためのGASをInputとして持ちます。
 
 EnrollmentTransactionは、登録フォームを表し、トランザクションの提供者をバリデーター候補者として登録するために使用されます。
 EnrollmentTransaction型のトランザクションを作成し、PublicKeyのアドレスにデポジットを送付することで登録が行われます。
-バリデーター候補者の登録をキャンセルする場合は、そのデポジットの残高を0にしてください。
+そのため、EnrollmentTransactionは@<table>{tx_type_table5}にあるように、バリデーター候補者のPublicKeyを持ちます。
+バリデーター候補者の登録をキャンセルする場合は、登録しているPublicKeyを0にしてください。
 
 //table[tx_type_table5][EnrollmentTransaction]{
 サイズ	フィールド	データ型	意味
@@ -117,8 +119,10 @@ EnrollmentTransaction型のトランザクションを作成し、PublicKeyの�
 33	PublicKey	ec_point	バリデーターのPublicKey
 //}
 
-VotingTransactionは、EnrollmentTransactionで登録されたバリデーター候補者へ投票するために使用されます。
-1人以上、1024人以下の候補者へ投票することができます。このトランザクションのNEOの値が投票の重みとなります。
+VotingTransactionは、登録フォームのハッシュ値のリストを持ち、
+EnrollmentTransactionで登録されたバリデーター候補者へ投票するために使用されます。（@<table>{tx_type_table6}）
+投票することのできる候補者は、1人以上、1024人以下です。
+このトランザクションのNEOの値が投票の重みとなります。
 
 //table[tx_type_table6][VotingTransaction]{
 サイズ	フィールド	データ型	意味
@@ -127,6 +131,7 @@ VotingTransactionは、EnrollmentTransactionで登録されたバリデーター
 //}
 
 NEOブロックチェーンに新しいアセットを登録する場合は、RegisterTransactionを使用します。
+RegisterTransactionの構造を@<table>{tx_type_table7}に示します。
 
 //tsize[10,15,15,70]
 //table[tx_type_table7][RegisterTransaction]{
@@ -139,7 +144,7 @@ x	Name		varstr		アセット名
 20	Admin		uint160		発行者のコントラクトのハッシュ値
 //}
 
-AssetTypeには次の値が格納されます。
+AssetTypeには@<table>{tx_type_table7_1}の値が格納されます。
 それぞれのアセットには固有の制限があり、NEOおよびAntCoinはシステムの組み込みアセットのためGenesisブロック（高さが0のブロック）でのみ作成することができます。
 equityのようなアセットを作成するときは、アセットの合計額を制限し、送信者と受信者の両方がトランザクションに署名しなくてはなりません。
 Currencyのアセット作成時には、アセットの合計額は制限することができません。
@@ -163,6 +168,8 @@ AgencyTransactionにおいて、ValueAssetIdは通貨のアセット（Currency�
 部分的に取引が実行されている注文では、最低価格をつける必要があります。
 買い注文では顧客が指定した価格より低い値段でトランザクションを実行することができ、反対に売り注文では顧客が指定した価格より高い価格とすることができます。
 
+AgencyTransactionの構造を@<table>{tx_type_table8}に示します。
+
 //tsize[10,20,20,70]
 //table[tx_type_table8][AgencyTransaction]{
 サイズ	フィールド		データ型	意味
@@ -176,7 +183,7 @@ x*x	Orders			order[]		注文のリスト
 //}
 
 トランザクションと共に注文が転送される場合、すでにアセット、Currency、
-エージェントなどの情報が含まれているため、次の形式に注文を圧縮できます。
+エージェントなどの情報が含まれているため、@<table>{tx_type_table8_1}のように注文を圧縮できます。
 
 //table[tx_type_table8_1][Order]{
 サイズ	フィールド		データ型	意味
@@ -188,7 +195,7 @@ x*x	Orders			order[]		注文のリスト
 x*x		Scripts		script[]	この注文を検証するために使用されるスクリプトのリスト
 //}
 
-部分的に実行されている注文について、次のようなデータ構造をとります。
+部分的に実行されている注文について、@<table>{tx_type_table8_2}のようなデータ構造をとります。
 
 //table[tx_type_table8_2][SplitOrder]{
 サイズ	フィールド		データ型	意味
@@ -203,7 +210,7 @@ x*x		Scripts		script[]	この注文を検証するために使用されるスク
 === トランザクションの属性（Attributes）
 
 トランザクションの属性は、トランザクションが使用される目的に合わせたデータを格納しているUsageと、
-目的外のデータ用に確保されたDataの２つの領域に分類されます。
+目的外のデータ用に確保されたDataの２つの領域に分類されます。（@<table>{tx_attributes_table1}）
 
 //table[tx_attributes_table1][トランザクションの属性]{
 名称			意味
@@ -212,7 +219,7 @@ Usage			トランザクションの目的に関連したデータ
 Data			トランザクションの目的外のデータ
 //}
 
-Usageでは、次のようなデータが格納されます。
+Usageでは、@<table>{tx_usage_table1}のようなデータが格納されます。
 
 //table[tx_usage_table1][トランザクションの用途]{
 値			名称				意味
