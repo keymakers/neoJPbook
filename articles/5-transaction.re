@@ -15,7 +15,7 @@ NEOのネットワークプロトコルはビットコインに似ています�
 
 //tsize[10,20,10,60]
 //table[blockdata1][ブロック]{
-サイズ	名称	データ型	意味
+サイズ	名称	データ型	説明
 -------------------------------------------------------------
 4	Version		uint32		ブロックのバージョンを示します。現在は0が使用されています。
 32	PrevBlock	uint256		前のブロックのハッシュ値を示します。
@@ -42,7 +42,7 @@ MerkleRootには全てのトランザクションのハッシュ値が含まれ�
 
 //tsize[30,60]
 //table[tx_table1][トランザクションの内容]{
-名前				意味
+名前				説明
 -------------------------------------------------------------
 Type				トランザクションのタイプ
 Attributes			トランザクションの属性
@@ -67,18 +67,18 @@ UTXOとは、ブロックチェーン上でまだ使用されていないトラ�
 
 //tsize[40,60]
 //table[tx_type_table1][トランザクションのタイプ]{
-名称						意味
+名称						説明
 -------------------------------------------------------------
 MinerTransaction		コンセンサストランザクション、バイトチャージ割当を行う
-IssueTransaction		アセット分配を行う
-ClaimTransaction		GAS配布を行う
-EnrollmentTransaction	バリデーター候補者として登録する
-VotingTransaction		バリデーターの投票を行う
-RegisterTransaction		アセットを登録する
-ContractTransaction		最も一般的に使用されるコントラクトトランザクション
-AgencyTransaction		トランザクション委託
-PublishTransaction		スマートコントラクトトランザクション
-InvocationTransaction	スマートコントラクトトランザクションの呼び出し
+IssueTransaction		アセット分配を行います。
+ClaimTransaction		GAS配布を行います。
+EnrollmentTransaction	バリデーター候補者として登録します。
+VotingTransaction		バリデーターの投票を行います。
+RegisterTransaction		アセットを登録します。version2以降はAsset.CreateAsset関数に置き換わっています。
+ContractTransaction		最も一般的に使用されるコントラクトトランザクションです。
+AgencyTransaction		トランザクションの委託を行います。
+PublishTransaction		スマートコントラクトトランザクション。version2以降はContract.Create関数に置き換わっています。
+InvocationTransaction	スマートコントラクトトランザクションの呼び出しを行います。
 //}
 
 いくつか代表的なトランザクションについて説明します。
@@ -87,18 +87,18 @@ MinerTransactionは、各ブロックのTransactionsのリストの最初に格�
 Nonce（uint32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。（@<table>{tx_type_table2}）
 
 //table[tx_type_table2][MinerTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
 4		Nonce	uint32		ランダムな数値
 //}
 
 次に、IssueTransactionについてです。
-アセットの管理者は、IssueTransactionによってブロックチェーンに登録されているアセットを作成し、任意のアドレスへ送ることができます。
-NEOから発行されているアセットの場合、トランザクションの手数料はかかりません。
+アセットの管理者は、IssueTransactionによってアセットを作成し、NEOのブロックチェーンに登録して任意のアドレスへ送ることができます。
+発行されているアセットがNEOの場合、トランザクションの手数料はかかりません。
 IssueTransactionもNonceの値を持ちます。（@<table>{tx_type_table3}）
 
 //table[tx_type_table3][IssueTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
 4		Nonce	uint32		ランダムな数値
 //}
@@ -106,7 +106,7 @@ IssueTransactionもNonceの値を持ちます。（@<table>{tx_type_table3}）
 ClaimTransactionは分配するためのGASをInputとして持ちます。（@<table>{tx_type_table4}）
 
 //table[tx_type_table4][ClaimTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
 34*x	Claims	tx_in[]		分配するGAS
 //}
@@ -114,10 +114,10 @@ ClaimTransactionは分配するためのGASをInputとして持ちます。（@<
 EnrollmentTransactionは、登録フォームを表し、トランザクションの提供者をバリデーター候補者として登録するために使用されます。
 EnrollmentTransaction型のトランザクションを作成し、PublicKeyのアドレスにデポジットを送付することで登録が行われます。
 そのため、EnrollmentTransactionは@<table>{tx_type_table5}にあるように、バリデーター候補者のPublicKeyを持ちます。
-バリデーター候補者の登録をキャンセルする場合は、登録しているPublicKeyを0にしてください。
+バリデーター候補者の登録をキャンセルする場合は、登録しているPublicKeyの残高を0にしてください。
 
 //table[tx_type_table5][EnrollmentTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
 33	PublicKey	ec_point	バリデーターのPublicKey
 //}
@@ -128,23 +128,48 @@ EnrollmentTransactionで登録されたバリデーター候補者へ投票す�
 このトランザクションのNEOの値が投票の重みとなります。
 
 //table[tx_type_table6][VotingTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
 32*x	Enrollments	uint256[]	登録フォームのハッシュ値のリスト
 //}
 
-NEOブロックチェーンに新しいアセットを登録する場合は、RegisterTransactionを使用します。
-RegisterTransactionの構造を@<table>{tx_type_table7}に示します。
+NEOブロックチェーンに新しいアセットを登録する場合は、RegisterTransaction（@<table>{tx_type_table7}）を使用します。
+RegisterTransactionは、NEOのversion2以降はAsset.CreateAsset関数（@<list>{tx_type_table7_new}, @<table>{tx_type_table7_new}）に置き換わっています。
+RegisterTransactionの構造をに示します。
 
 //tsize[10,15,15,70]
 //table[tx_type_table7][RegisterTransaction]{
-サイズ	フィールド	データ型	意味
+サイズ	フィールド	データ型	説明
 -------------------------------------------------------------
-1	AssetType	uint8		アセットの型
-x	Name		varstr		アセット名
+1	AssetType	uint8		アセットタイプ
+x	Name		varstr		アセットの名前
 8	Amount		int64		アセットの金額（正の値をとる場合は制限モード、-10^-8の場合は無制限モード）
 33	Issuer		ec_point	発行者のPublicKey
 20	Admin		uint160		発行者のコントラクトのハッシュ値
+//}
+
+//list[tx_type_table7_new][Asset.CreateAsset]{
+public static extern Neo.SmartContract.Framework.Services.Neo.Asset 
+	Create(byte asset_type, 
+		   string name,
+		   long amount,
+		   byte precision, 
+		   byte[] owner, 
+		   byte[] admin, 
+		   byte[] issuer)
+//}
+
+//table[tx_type_table7_new][Asset.CreateAsset]{
+名称			データ型	説明
+-------------------------------------------------------------
+asset_type		byte	アセットタイプ
+name			string	アセットの名前
+amount			long	アセットの合計。ここでの入力値は、100,000,000を掛けた値である必要があります。
+precision		byte	アセットの最小区分、つまりアセットが取ることができる小数点以下の桁数です。
+owner			byte[]	長さが33のバイト配列の、所有者のパブリックキー
+admin			byte[]	長さが20のバイト配列の、管理者のコントラクトアドレス
+issuer			byte[]	長さが20のバイト配列の、発行者のコントラクトアドレス
+戻り値			Asset	新たに登録されたアセット
 //}
 
 AssetTypeには@<table>{tx_type_table7_1}の値が格納されます。
@@ -153,17 +178,24 @@ equityのようなアセットを作成するときは、アセットの合計�
 Currencyのアセット作成時には、アセットの合計額は制限することができません。
 
 //table[tx_type_table7_1][AssetType]{
-値		名前			意味
+値		名前			説明
 -------------------------------------------------------------
+0x40	CreditFlag		クレジットフラグ
+0x80	DutyFlag		Dutyフラグ。このフラグがONの場合、検証が行われます。
 0x00	SystemShare		NEO
 0x01	SystemCoin		NEO GAS
-0x10	Share			equity/シェア
-0x20	Currency		通貨
-0x40	Token			カスタムアセットのトークン
+0x08	Currency		通貨
+0x60	Token			カスタムアセットのトークン。CreditFlag | 0x20で計算されます
+0x90	Share			equity/シェア。DutyFlag | 0x10で計算されます
+0x98	Invoice			インボイス。DutyFlag | 0x18で計算されます
 //}
 
-ContractTransactionは、アセットを転送するためのトランザクションです。
-NEOやGASなどのアセットを転送することを目的としており、ブロックチェーンでもっとも一般的な取引です。
+#@# DutyFlag
+#@# https://github.com/neo-project/neo/blob/fd5e3c6d7e9e0e9ff87b0994d71d2cbc0db9e27d/neo/Network/P2P/Payloads/Transaction.cs#L184
+
+ContractTransactionは、NEOやGASなどのアセットを送るためのもっとも一般的なトランザクションです。
+InputsとOutputsのトランザクションフィールドは、このトランザクションにおいて重要です。
+（例えば、NEOをどれだけ、どのアドレスに対して送信するかが設定されます。）
 
 AgencyTransactionにおいて、ValueAssetIdは通貨のアセット（Currency）でなければならず、AssetIdと同じ値を使用することはできません。
 購入リストと販売リストは、それぞれ少なくとも1つの注文を格納する必要があります。
@@ -175,7 +207,7 @@ AgencyTransactionの構造を@<table>{tx_type_table8}に示します。
 
 //tsize[10,20,20,70]
 //table[tx_type_table8][AgencyTransaction]{
-サイズ	フィールド		データ型	意味
+サイズ	フィールド		データ型	説明
 -------------------------------------------------------------
 32	AssetId			uint256		アセットID
 32	ValueAssetId	uint256		アセットIDの値
@@ -189,7 +221,7 @@ x*x	Orders			order[]		注文のリスト
 エージェントなどの情報が含まれているため、@<table>{tx_type_table8_1}のように注文を圧縮できます。
 
 //table[tx_type_table8_1][Order]{
-サイズ	フィールド		データ型	意味
+サイズ	フィールド		データ型	説明
 -------------------------------------------------------------
 8		Amount		int64		注文の量
 8		Price		int64		注文の金額
@@ -201,7 +233,7 @@ x*x		Scripts		script[]	この注文を検証するために使用されるスク
 部分的に実行されている注文について、@<table>{tx_type_table8_2}のようなデータ構造をとります。
 
 //table[tx_type_table8_2][SplitOrder]{
-サイズ	フィールド		データ型	意味
+サイズ	フィールド		データ型	説明
 -------------------------------------------------------------
 8		Amount		int64		注文の量
 8		Price		int64		注文の金額
@@ -210,33 +242,77 @@ x*x		Scripts		script[]	この注文を検証するために使用されるスク
 
 すべての種類の注文について、金額がプラスの場合は買い、金額がマイナスの場合は販売を意味します。
 
+PublishTransactionは、version2以降においてContract.Create関数（@<list>{tx_type_table9}, @<table>{tx_type_table9}）に置き換わっています。
+
+//list[tx_type_table9][Contract.Create]{
+public static extern Neo.SmartContract.Framework.Services.Neo.Contract 
+	CreateContract(byte[] script, 
+				   byte[] parameter_list, 
+				   byte return_type, 
+				   bool need_storage, 
+				   string name, 
+				   string version, 
+				   string author, 
+				   string email, 
+				   string description)
+//}
+
+//table[tx_type_table9][Contract.Create]{
+名称			データ型	説明
+-------------------------------------------------------------
+script			byte[]		コントラクトのバイトコード
+parameter_list	byte[]		パラメータリスト
+return_type		byte		戻り値の型
+need_storage	bool		コントラクトが永続化ストアを必要とするかどうか
+name			string		コントラクトの名前
+version			string		バージョン
+author			string		署名者の名前
+email			string		署名者のeメールアドレス
+description		string		コントラクトの説明
+戻り値			Contract	新たに作成されたコントラクト
+//}
+
+InvocationTransaction@<table>{tx_type_table10}に示します。
+
+//table[tx_type_table10][InvocationTransaction]{
+サイズ	フィールド	データ型	説明
+-------------------------------------------------------------
+x		Script	uint8[]		スマートコントラクトのスクリプトにより呼び出されます
+8		Gas		int64		スマートコントラクトを実行するのに必要なコストです
+//}
+
+
 === トランザクションの属性（Attributes）
 
 トランザクションの属性は、トランザクションが使用される目的に合わせたデータを格納しているUsageと、
 目的外のデータ用に確保されたDataの２つの領域に分類されます。（@<table>{tx_attributes_table1}）
 
 //table[tx_attributes_table1][トランザクションの属性]{
-名称			意味
+サイズ	名称	データの型	説明
 -------------------------------------------------------------
-Usage			トランザクションの目的に関連したデータ
-Data			トランザクションの目的外のデータ
+1		Usage	uint8			トランザクションの目的に関連したデータ
+0|1		length	uint8			データ長（Usageの値によっては省略されます）
+length	Data	uint8[length]	トランザクションの目的外のデータ
 //}
 
 Usageでは、@<table>{tx_usage_table1}のようなデータが格納されます。
 
 //table[tx_usage_table1][トランザクションの用途]{
-値			名称				意味
+値			名称				説明
 -------------------------------------------------------------
 0x00			ContractHash		コントラクトのハッシュ値
 0x02-0x03		ECDH02-ECDH03		ECDH鍵交換のための公開鍵
-0x20			Script				トランザクションの追加承認用
-0x30			Vote				投票
-0x80			CertUrl				トランザクションの承認URL
+0x20			Script				トランザクションの追加のバリデーション
+0x30			Vote				投票に使用します
+0x80			CertUrl				証明書のURLアドレス
 0x81			DescriptionUrl		トランザクションの説明URL
 0x90			Description			簡単な説明
-0xa1-0xaf		Hash1-Hash15		ハッシュデータの操作に使用可能
-0xf0-0xff		Remark-Remark15		トランザクション備考
+0xa1-0xaf		Hash1-Hash15		カスタムハッシュ値を保管するのに使用
+0xf0-0xff		Remark-Remark15		注意事項
 //}
+
+ContractHash、ECDH02-ECDH03、Hash1-Hash15において、データ長は32固定でありlengthフィールドは省略されます。
+CertUrl、DescriptionUrl、Description、Remark-Remark15において、データ長を255以下の長さで明確に定義する必要があり、省略することはできません。
 
 
 === トランザクションの入力
@@ -250,11 +326,16 @@ Usageでは、@<table>{tx_usage_table1}のようなデータが格納されま�
 
 === トランザクションの出力
 
-トランザクションの出力には、3つのフィールドがあります。
+トランザクションの出力には、@<table>{tx_output}に示す3つのフィールドがあります。
+各トランザクションは最大65536のOutputを持つことができます。
 
-1. アセットのタイプ
-2. 宛先のアドレス
-3. 転送量
+//table[tx_output][トランザクションの出力]{
+サイズ	フィールド		データ型	説明
+-------------------------------------------------------------
+32		AssetId		uint256		アセットID
+8		Value		int64		アセットの値
+20		ScriptHash	uint160		宛先のアドレス
+//}
 
 
 == NEO scan
