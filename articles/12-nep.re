@@ -175,18 +175,20 @@ NEPを出す際には、守らなければならないフォーマットやテ�
 
 最後に、NEPを出すために前文を記載する際に守るべきフォーマットとテンプレートについて補足していきます。
 
-//emlist[ ]{  NEP: 5
+//emlist{
+	NEP: 5
   Title: Token Standard
   Author: Tyler Adams <lllwvlvwlll@gmail.com>, luodanwg <luodan.wg@gmail.com>, tanyuan <tanyuan666@gmail.com>, Alan Fong <anfn@umich.edu>
   Type: Standard
   Status: Final
   Created: 2017-08-10
 //}
-@<br>{}
+
 
 2018年時点のNEP5では実際にこのように表示されています。
 
-//emlist[ ]{  NEP: <NEP number>(this is determined by the NEP editor)
+//emlist{
+	NEP: <NEP number>(this is determined by the NEP editor)
   Title: <NEP title>
   Author: <list of authors' real names and optionally, email address>
  *Discussions-To: <email address>
@@ -197,7 +199,6 @@ NEPを出す際には、守らなければならないフォーマットやテ�
  *Superseded-By: <NEP number>
  *Resolution: <url>
 //}
-@<br>{}
 
 これは前文のテンプレートです。
 RFC822スタイルのヘッダーで情報が記載されています。
@@ -209,13 +210,13 @@ RFC822スタイルのヘッダーで情報が記載されています。
 たとえば次のように表示されます。
 
 
-//emlist[Eメールアドレスを記載する場合]{  Random J. User <address@dom.ain>
+//emlist[Eメールアドレスを記載する場合]{
+	Random J. User <address@dom.ain>
 //}
-@<br>{}
 
-//emlist[Eメールアドレスを記載しない場合]{  Random J. User
+//emlist[Eメールアドレスを記載しない場合]{
+	Random J. User
 //}
-@<br>{}
 
 その他のヘッダーは次のようなものです。
 
@@ -260,7 +261,6 @@ RFC822スタイルのヘッダーで情報が記載されています。
           NeoX                                   Standard          Stub
           NeoQS                                  Standard          Stub
 //}
-@<br>{}
 
 ここではNEP5とNEP6、そして今後新しく実装される可能性の高いNEOXを取り上げ紹介します。
 
@@ -306,14 +306,14 @@ NeoXは、クロスチェーン型の相互運用性を実装するプロトコ�
 
 ==== クロスチェーン型分配取引プロトコル
 クロスチェーン型分配取引プロトコルとは、@<img>{neox_2}のようにトランザクションの種々のステップが異なるブロックチェーンを介して分散されつつも、
-トランザクションの全プロセスの一貫性が確保されるプロトコルのことです。
+トラcンザクションの全プロセスの一貫性が確保されるプロトコルのことです。
 
 //image[neox_2][クロスチェーン型分散取引プロトコルのイメージ][scale=0.8]{
 
 //}
 
-これはクロスチェーン型資産交換を拡張し、
-資産交換という行為を任意なものへと変えるアイデアといえます。
+
+これはクロスチェーン型資産交換を拡張し、資産交換という行為を任意なものへと変えるアイデアといえます。
 
 == 他の章との関連
   * NEP5 → 9章スマートコントラクト
