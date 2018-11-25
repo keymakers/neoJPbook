@@ -26,7 +26,7 @@ neo-localは、次のサービスによって構成されます。
 
 本項では、neo-localをインストールする方法を解説します。
 それぞれのプラットフォームにおいて、neo-scanを稼働させるには
-Docker、Docker Compose、Gitが必要なので事前にインストールをしてください。
+Docker、Docker Compose、Gitが必要なので事前にインストールをしてください。
 
 gitコマンドを使用して、neo-localのリポジトリをクローンします。
 //cmd{
@@ -79,13 +79,6 @@ neo-localに含まれているので、単体でインストールする必要�
 #@# TODO
 
 == neonjs
-neon-jsとは、ウォレット機能、トランザクションの操作機能、その他便利機能を搭載したNEOブロックチェーンのためのJavascript SDKです。
-City Of Zionによってオープンソースで開発されており、NeonWalletというNEO用ウォレットアプリで実際に使われています。
-
-neon-jsは、ノードとして機能しないライトウォレットです。前章までで使用したneo-pythonには、フルノードとして多くの機能が搭載されています。
-neo-localに含まれているので、単体でインストールする必要はありません。
-
-== neon-jsとは
 neon-jsとは、ウォレット機能、トランザクションの操作機能、その他便利機能を搭載したNEOブロックチェーンのためのJavascript SDKです。
 City Of Zionによってオープンソースで開発されており、NeonWalletというNEO用ウォレットアプリで実際に使われています。
 
@@ -211,6 +204,18 @@ neo-localに含まれているので、単体でインストールする必要�
 == Neoscan
 neoscanは、WebアプリケーションとAPIサーバによって構成されたソフトウェアです。
 NEOブロックチェーンとの同期をとり、ブロックチェーン上で行われたトランザクションや、デプロイしたスマートコントラクトの情報を即座に参照することができます。
-neon-jsでは、neo-scanがないと実行できない機能がいくつかあり、PluginModulesに内包されています。
 
 @<href>{https://neoscan.io/}にアクセスすることで、NEOのMainnetに接続しているneoscanを利用することができます。
+
+現在のneo-scanは、次の複数のサービスにより構成されています。
+
+ * neo-scan-api（ブロック参照ツールのAPI）
+ * neo-scan-sync（ブロック参照ツールのブロックチェーンとの同期）
+ * postgres（データベース）
+
+
+
+== その他のツール
+これまでに解説したツールの他にも、NEO dApp開発に役に立つツールや情報は存在します。
+Awesome NEO( @<href>{https://github.com/CityOfZion/awesome-neo} )というGithubのリポジトリでは、
+NEOの関連ツールへのリンクがまとめられており、多くのNEO技術者の助けとなるでしょう。
