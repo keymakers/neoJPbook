@@ -336,8 +336,7 @@ func (p *PrivateKey) Signature() ([]byte, error) {
 	return hash, nil
 }
 //}
-関数名は、signatureとなっていますが、やっていることは、秘密鍵から公開鍵を生成（前述）して、それを元に公開鍵の20byteのハッシュを生成しています。
-
+関数名は、signatureとなっていますが、関数内で実行していることは、秘密鍵から公開鍵を生成（前述）して、それを元に公開鍵の20byteのハッシュを生成しています。
 実際にこの関数を実行してみます。
 //emlist{
 	func main() {
