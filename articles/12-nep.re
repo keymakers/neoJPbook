@@ -178,7 +178,8 @@ NEPを出す際には、守らなければならないフォーマットやテ�
 //emlist{
 	NEP: 5
   Title: Token Standard
-  Author: Tyler Adams <lllwvlvwlll@gmail.com>, luodanwg <luodan.wg@gmail.com>, tanyuan <tanyuan666@gmail.com>, Alan Fong <anfn@umich.edu>
+  Author: Tyler Adams <lllwvlvwlll@gmail.com>, luodanwg <luodan.wg@gmail.com>,
+	 tanyuan <tanyuan666@gmail.com>, Alan Fong <anfn@umich.edu>
   Type: Standard
   Status: Final
   Created: 2017-08-10
@@ -192,7 +193,8 @@ NEPを出す際には、守らなければならないフォーマットやテ�
   Title: <NEP title>
   Author: <list of authors' real names and optionally, email address>
  *Discussions-To: <email address>
-  Status: <Draft | Active | Accepted | Deferred | Rejected | Withdrawn | Final | Superseded>
+  Status: <Draft | Active | Accepted | Deferred | Rejected | Withdrawn | Final
+	 | Superseded>
   Type: <Standard | Informational | Meta>
   Created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
  *Replaces: <NEP numbers>
