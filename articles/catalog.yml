@@ -22,7 +22,7 @@ CHAPS:
   # 9章
   - 9-smartcontracts.re
   # 10章
-  - 10-neo-applications.re
+  # - 10-neo-applications.re
   # 11章
   - 11-how-to-start-dapps-on-neo.re
   # 12章
@@ -31,4 +31,4 @@ CHAPS:
 APPENDIX:
 
 POSTDEF:
-  - contributors.re
+  # - contributors.re
