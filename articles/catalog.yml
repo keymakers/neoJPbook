@@ -31,4 +31,5 @@ CHAPS:
 APPENDIX:
 
 POSTDEF:
-  # - contributors.re
+   - foreword.re
+   
