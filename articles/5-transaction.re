@@ -149,13 +149,13 @@ x	Name		varstr		アセットの名前
 //}
 
 //list[tx_type_table7_new][Asset.CreateAsset]{
-public static extern Neo.SmartContract.Framework.Services.Neo.Asset 
-	Create(byte asset_type, 
+public static extern Neo.SmartContract.Framework.Services.Neo.Asset
+	Create(byte asset_type,
 		   string name,
 		   long amount,
-		   byte precision, 
-		   byte[] owner, 
-		   byte[] admin, 
+		   byte precision,
+		   byte[] owner,
+		   byte[] admin,
 		   byte[] issuer)
 //}
 
@@ -164,8 +164,8 @@ public static extern Neo.SmartContract.Framework.Services.Neo.Asset
 -------------------------------------------------------------
 asset_type		byte	アセットタイプ
 name			string	アセットの名前
-amount			long	アセットの合計。ここでの入力値は、100,000,000を掛けた値である必要があります。
-precision		byte	アセットの最小区分、つまりアセットが取ることができる小数点以下の桁数です。
+amount			long	アセットの合計。入力値は、100,000,000を掛けた値。
+precision		byte	アセットが取ることができる小数点以下の桁数。
 owner			byte[]	長さが33のバイト配列の、所有者のパブリックキー
 admin			byte[]	長さが20のバイト配列の、管理者のコントラクトアドレス
 issuer			byte[]	長さが20のバイト配列の、発行者のコントラクトアドレス
@@ -245,15 +245,15 @@ x*x		Scripts		script[]	この注文を検証するために使用されるスク
 PublishTransactionは、version2以降においてContract.Create関数（@<list>{tx_type_table9}, @<table>{tx_type_table9}）に置き換わっています。
 
 //list[tx_type_table9][Contract.Create]{
-public static extern Neo.SmartContract.Framework.Services.Neo.Contract 
-	CreateContract(byte[] script, 
-				   byte[] parameter_list, 
-				   byte return_type, 
-				   bool need_storage, 
-				   string name, 
-				   string version, 
-				   string author, 
-				   string email, 
+public static extern Neo.SmartContract.Framework.Services.Neo.Contract
+	CreateContract(byte[] script,
+				   byte[] parameter_list,
+				   byte return_type,
+				   bool need_storage,
+				   string name,
+				   string version,
+				   string author,
+				   string email,
 				   string description)
 //}
 
