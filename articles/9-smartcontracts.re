@@ -78,32 +78,35 @@ Red Pulseの提供するプラットフォームでは、投稿されたコン�
 手数料はスマートコントラクトの実行時に呼び出されるNeoVMのシステムコールの種類と数によって決定されますが、
 現在のNEOブロックチェーンでは、毎回のスマートコントラクトの実行に対し10GAS分の無料枠が設定されています。
 このため、10GASを超えないスマートコントラクトの実行には手数料が発生しません。
-システムコールに対する手数料は、@<table>{smartcontract-fees}に示すとおりです。
+システムコールに対する手数料は、@<table>{gas}に示すとおりです。
 この他にも、スマートコントラクトの呼び出しを優先的に行うために、ユーザは追加で任意の手数料(1GAS〜)を支払うことができます。
 
-//table[smartcontract-fees][システムコールに対する手数料]{
-システムコール	手数料(GAS)
----------------------------------
-Runtime.CheckWitness	0.2
-Blockchain.GetHeader	ヘッダーの取得	0.1
-Blockchain.GetBlock	ブロック情報の取得	0.2
-Blockchain.GetTransaction	トランザクション情報の取得	0.1
-Blockchain.GetAccount	アカウント情報の取得	0.1
-Blockchain.GetValidators	バリデーターの取得	0.2
-Blockchain.GetAsset	アセットの取得	0.1
-Blockchain.GetContract	コントラクト情報の取得	0.1
-Transaction.GetReferences	参照の取得	0.2
-Account.SetVotes	投票	1
-Validator.Register	バリデーターの登録	1000
-Asset.Create (system asset)	アセットの作成	5000
-Asset.Renew (system asset) [per year]	アセットの更新(年)	5000
-Contract.Create	スマートコントラクトの作成	100~1000
-Contract.Migrate	スマートコントラクトのデプロイ	100~1000	
-Storage.Get	ブロックチェーン上のストレージからデータを取得	0.1	
-Storage.Put	[per KB]*	ストレージにデータを書き込む(KB毎)	1
-Storage.Delete	ストレージのデータを削除	0.1
-(Default)	必ず発生する手数料	0.001
+//imgtable[gas][システムコールに対する手数料]{
 //}
+
+#@# //table[smartcontract-fees][システムコールに対する手数料]{
+#@# システムコール	手数料(GAS)
+#@# ---------------------------------
+#@# Runtime.CheckWitness	0.2
+#@# Blockchain.GetHeader	ヘッダーの取得	0.1
+#@# Blockchain.GetBlock	ブロック情報の取得	0.2
+#@# Blockchain.GetTransaction	トランザクション情報の取得	0.1
+#@# Blockchain.GetAccount	アカウント情報の取得	0.1
+#@# Blockchain.GetValidators	バリデーターの取得	0.2
+#@# Blockchain.GetAsset	アセットの取得	0.1
+#@# Blockchain.GetContract	コントラクト情報の取得	0.1
+#@# Transaction.GetReferences	参照の取得	0.2
+#@# Account.SetVotes	投票	1
+#@# Validator.Register	バリデーターの登録	1000
+#@# Asset.Create (system asset)	アセットの作成	5000
+#@# Asset.Renew (system asset) [per year]	アセットの更新(年)	5000
+#@# Contract.Create	スマートコントラクトの作成	100~1000
+#@# Contract.Migrate	スマートコントラクトのデプロイ	100~1000	
+#@# Storage.Get	ブロックチェーン上のストレージからデータを取得	0.1	
+#@# Storage.Put	[per KB]*	ストレージにデータを書き込む(KB毎)	1
+#@# Storage.Delete	ストレージのデータを削除	0.1
+#@# (Default)	必ず発生する手数料	0.001
+#@# //}
 
 ==[column] デプロイに必要な手数料
 スマートコントラクトのデプロイ時に必要な手数料は100~1000GASとなっています。
