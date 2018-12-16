@@ -22,7 +22,7 @@ Neo-localを使ったNEOのローカル環境の構築については、8章の�
 ローカルにNEOの実行環境を構築できたら早速スマートコントラクトの開発を行ってみましょう。
 
 == スマートコントラクトの開発
-今回は出来るだけ簡単にスマートコントラクトの開発を行うために、neocompiler<https://neocompiler.io>を使用します。
+今回はできるだけ簡単にスマートコントラクトの開発を行うために、neocompiler<https://neocompiler.io>を使用します。
 
 //image[neocompiler][neocompiler.io][scale=0.9]{
 //}
@@ -46,7 +46,7 @@ https://neocompiler.io/#/ecolab
 //image[neoc_example]["Select Example" から "HelloWorldNotification.cs"を選択する][scale=0.9]{
 //}
 
-"HelloWorldNotification.cs"のコントラクトの中身は下記の通りです。
+"HelloWorldNotification.cs"のコントラクトの中身は次のとおりです。
 
 //emlist{
   using Neo.SmartContract.Framework.Services.Neo;
@@ -116,10 +116,12 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 //image[neoc_invoke][Deploy Buttonをクリック][scale=0.9]{
 //}
 
-コントラクトが実行されると、NEO環境に下記のようなメッセージが出力されていると思います。
+コントラクトが実行されると、NEO環境に次のようなメッセージが出力されていると思います。
 
 //emlist{
-[SmartContract.Runtime.Notify][9385] [d71ee2627458f77b92d98751c3b6798a85ac86b6] [tx 82df6bf2d20410c77c87e1f02c339be13184ace3d1669ae8aef912d39c426ea7] {'type': 'Array', 'value': [{'type': 'ByteArray', 'value': b'Hello World'}]}
+[SmartContract.Runtime.Notify][9385] [d71ee2627458f77b92d98751c3b6798a85ac86b6]
+ [tx 82df6bf2d20410c77c87e1f02c339be13184ace3d1669ae8aef912d39c426ea7]
+ {'type': 'Array', 'value': [{'type': 'ByteArray', 'value': b'Hello World'}]}
 //}
 
 //image[neoc_runtime][Deploy Buttonをクリック][scale=0.9]{
@@ -130,7 +132,7 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 
 == フロントエンドからのスマートコントラクトのアクセス
 
-ここではNeon-js使用します。サンプルコードは下記の通りです。
+ここではNeon-js使用します。サンプルコードは次のとおりです。
 
 //emlist{
   //Neon-jsの読み込み
@@ -138,7 +140,8 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 
   //API providerの読み込んでAPIの作成
   //LocalhostのNeoScanのAPIを指定
-  var apiProvider = new Neon.api.neoscan.instance('http://localhost:4000/api/main_net')
+  var apiProvider = new Neon.api.neoscan.instance('http://localhost:4000/
+	api/main_net')
 
   //Private Keyの読み込でAccount
   var acct = new Neon.wallet.Account(
@@ -158,7 +161,7 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 
   //api, account
   var config = {
-      api: apiProvider, // The network to perform the action, MainNet or TestNet.
+      api: apiProvider, //The network to perform the action, MainNet or TestNet
       account: acct, // This is the address which the assets come from.
       script: script,
       gas: 1
@@ -176,4 +179,5 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 上記のコードを実行すると、NEOのコントラクトにアクセスすることができます。
 
 Neon-jsの詳しい使い方は下記を参考にしてみてください。
+
 http://cityofzion.io/neon-js/docs/en/installation.html

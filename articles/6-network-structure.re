@@ -21,7 +21,7 @@ NEOトークンは2つに分割されており、50%はクラウドセールに�
  * 15% : 不遇の自体に対する備え
  * 15% : NEO上のプロジェクトに対する投資
 
-https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consensus%20Nodev1.2.md
+@<href>{https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consensus%20Nodev1.2.md}
 
 == コンセンサスノードへのなり方
 オンチェーン、オフチェーンでのコンセンサスノードのなり方があります。
@@ -66,21 +66,21 @@ Public Key: 024c7b7fb6c310fccf1ba33b082519d82964ea93868d676662d4a59ad548df0e7d
 
 NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能经济）を実現するために開発を行っています。NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立された。City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
 
-twitter: https://twitter.com/neo_blockchain
-facebook: https://www.facebook.com/NEOSmartEcon
-github: https://github.com/neo-project
+twitter: @<href>{https://twitter.com/neo_blockchain}
+facebook: @<href>{https://www.facebook.com/NEOSmartEcon}
+github: @<href>{https://github.com/neo-project}
 
 === CITY OF ZION
 Public Key: 025bdf3f181f53e9696227843950deb72dcd374ded17c057159513c3d0abe20b64
-Website: http://cityofzion.io/
-E-mail: council@cityofzion.io
+Website: @<href>{http://cityofzion.io/}
+E-mail: @<href>{council@cityofzion.io}
 
 City of Zionはオープンソース開発、デザイン、翻訳などを行いNEOコアチームとエコシステムを開発しているグループです。
 
 === KPN
 Public Key: 035e819642a8915a2572f972ddbdbe3042ae6437349295edce9bdc3b8884bbf9a3
-Website: https://www.kpn.com
-E-mail: DLT@KPN.com
+Website: @<href>{https://www.kpn.com}
+E-mail: @<href>{DLT@KPN.com}
 
 KPNはオランダに拠点をもつ通信会社です。
 
@@ -112,7 +112,7 @@ NEOブロックチェーンにおいて、ブロックの生成速度は15〜20�
 
 == テストGASとテストNEOの獲得方法
 
- 1. リクエストフォーム（ https://www.neo.org/Testnet/Create )を埋めますその際に、EMAILとPUBLIC KEYを入力してください
+ 1. リクエストフォーム（ @<href>{https://www.neo.org/Testnet/Create} )を埋めますその際に、EMAILとPUBLIC KEYを入力してください
  2. その後、1日ほどした後、コントラクトアドレスと2つ目のプライベートキーを受け取ります
  3. 自分のウォレットにマルチシグアドレスを作ります
  4. アドレスを特定し自分のウォレットからアセットを送信します
@@ -123,7 +123,7 @@ NEOブロックチェーンにおいて、ブロックの生成速度は15〜20�
 //}
 
 === リクエストフォームに回答する
-こちらのURL（https://www.neo.org/Testnet/Create）からEMAILアドレスとパブリックキーを指定します。数日ごEMAILが届きます。
+こちらのURL（@<href>{https://www.neo.org/Testnet/Create}）からEMAILアドレスとパブリックキーを指定します。数日ごEMAILが届きます。
 
 === マルチパーティーアドレスを作成する
 アセットにアクセスするために、自身のNEO-GUIでウォレット内に"Multi-party signed address"を作成します。
@@ -191,7 +191,7 @@ NEOのプライベートブロックチェーンでは、コンセンサスを�
 virtual machineの作成が完了したら、4つのvartual machineのIP addressを保存してください。このアドレスは後使用します。
 
 === ウォレットを作成する
-最初に4つのウォレットを作成します。それらには、wallet1.db3,wallet2.db3,wallet3.db3 - wallet4.db3 という名前をつけます。このステップはローカルのPC画面上もしくはロマンドラインで実行することができます。次のスクリーンショットでどのようにウォレットをコマンドライン上で作成するかが分かると思います。
+最初に4つのウォレットを作成します。それらには、wallet1.db3,wallet2.db3,wallet3.db3,wallet4.db3 という名前をつけます。このステップはローカルのPC画面上もしくはロマンドラインで実行することができます。次のスクリーンショットでどのようにウォレットをコマンドライン上で作成するかが分かると思います。
 
 //image[privatechain_3][ブロック同期3]{
 //}

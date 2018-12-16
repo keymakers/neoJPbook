@@ -61,9 +61,9 @@ NEOの秘密鍵は、ランダム性がある256bitの数値で、ある文字�
 936a185caaa266bb9cbe981e9e05cb78cd732b0b3280eb944412bb6f8f8f07af
 //}
 
-ちなみに先ほどの秘密鍵の4^64bitとは次のように78桁にも及ぶとてつもなく大きな数で、秘密鍵が他人のものと一致するという確率は天文学的に低いといえるでしょう。
+ちなみに先ほどの秘密鍵の2^4^64bitとは次のように78桁にも及ぶとてつもなく大きな数で、秘密鍵が他人のものと一致するという確率は天文学的に低いといえるでしょう。
 //cmd{
-4^64=1157920892373161954235709850086879078532699846656405640394575840079131296
+2^4^64=1157920892373161954235709850086879078532699846656405640394575840079131296
 39936
 //}
 
@@ -73,10 +73,10 @@ NEOのネットワーク上では、秘密鍵は、NEOやGasの送信、また�
 NEO所有者は、NEOを送信する時に、公開鍵と署名をトランザクションに記載します。NEOネットワークに参加している参加者は、この公開鍵と署名を確認することで、トランザクションを検証し有効なものとみなします。
 
 
-=== Tips
+==[column] 公開鍵と秘密鍵
 公開鍵は、秘密鍵から計算できるため、秘密鍵だけ保存しておけばいつでも公開鍵を導き出すことができます。
 
-=== Tips1
+==[column] 安全な秘密鍵とは
 キーを生成する上で重要かつ一番最初にしなればいけないことは、キー生成の安定的なエントロピー源、つまり十分なランダムさを確保することです。
 NEOキーを作ることは、"1から 2^256 までの間の数字を選ぶ"ということと本質的に同じです。
 数字を選ぶ厳格な方法は、予測可能であったり再現可能性があったりしない方法です。
@@ -90,7 +90,7 @@ NEOの秘密鍵は先述したように単なる数値なので、コインや�
 
 === 楕円曲線とは
 楕円曲線とは次の形の方程式により定義される平面曲線です。
-//indepimage[equation][楕円曲線を表した数式][scale=0.99]
+//indepimage[equation][楕円曲線を表した数式]
 
 このa,bの値を変えることで、楕円曲線はさまざまなな曲線の形状になります。
 NEOでは、楕円曲線の中でもBitcoinなどと同様にSecp256k1と呼ばれる楕円曲線を利用しています。
@@ -116,7 +116,7 @@ K = k * G
 また、公開鍵から生成されたNEOアドレスから秘密鍵kを求めることはできないので、アドレスを他人と共有することも可能です。
 この公開鍵から秘密鍵に戻すことができないのは、公開鍵生成プロセスが上述したように数学的に一方向になっているためです。
 
-=== Tips2
+==[column] アドレスと公開鍵
 NEOアドレスは公開鍵は同じではありません 。
 NEOアドレスは公開鍵から一方向関数を使って導出されるものです。
 
@@ -146,16 +146,14 @@ NEOアドレスは、 "Base58Check" と呼ばれる形にエンコードされ�
 "Base58Check"では、58個の文字（Base58）とチェックサムを使いますが、これは人間にとって読みやすくしたり、曖昧さを避けたり、転写時のエラーを防いだりするためです。
 さらに、"Base58Check"でprifixを追加することによって、エンコードしたデータの本体の最初に固有の文字（A）が現れるため、NEOのアドレスだと判断しやすくなります。
 
-=== Tips3
-NEOのアドレスがAから始まるのは、NEOの前身であるAntShareのAからきているといわれています。
 
 == NEOのアドレスを作ってみよう！
 NEOのアドレスは、`A`から始まる34桁の文字列の羅列になります。
 //emlist{
-	AXJAtEWGNW3EbgJZxoYDe9tL7CafDqdYKY
+AXJAtEWGNW3EbgJZxoYDe9tL7CafDqdYKY
 //}
 
-これからこのAから始まるNEOアドレスの生成方法をCity Of ZionがGolangで実装したNeo-Go@<fn>{neo-go}のパッケージを元に辿っていきたいと思います。
+これからこのAから始まるNEOアドレスの生成方法をCity Of ZionがGolangで実装した@<href>{https://github.com/CityOfZion/neo-go, Neo-Go}のパッケージを元に辿っていきたいと思います。
 
 NEOのアドレス生成は、次の手順で達成されます。
  1. 秘密鍵（PrivateKey）の生成
@@ -165,74 +163,73 @@ NEOのアドレス生成は、次の手順で達成されます。
  4. checksumをつける
  5. base58でencodeする
 
-//footnote[neo-go][https://github.com/CityOfZion/neo-go]
 
 ここでは、すでに準備されている楕円曲線上の点を選びます。
 //emlist[ランダムな秘密鍵の生成]{
 type (
-		// EllipticCurve represents the parameters of a short Weierstrass equation elliptic
-		// curve.
-		EllipticCurve struct {
-			A *big.Int
-			B *big.Int
-			P *big.Int
-			G ECPoint
-			N *big.Int
-			H *big.Int
-		}
+// EllipticCurve represents the parameters of a short Weierstrass
+// equation elliptic curve.
+EllipticCurve struct {
+	A *big.Int
+	B *big.Int
+	P *big.Int
+	G ECPoint
+	N *big.Int
+	H *big.Int
+	}
 
-		// ECPoint represents a point on the EllipticCurve.
-		ECPoint struct {
-			X *big.Int
-			Y *big.Int
-		}
-	)
+// ECPoint represents a point on the EllipticCurve.
+ECPoint struct {
+	X *big.Int
+	Y *big.Int
+	}
+)
 
 type PrivateKey struct {
-　　b []byte
-	}
+　b []byte
+}
 
 func NewPrivateKey() (*PrivateKey, error) {
-	c := NewEllipticCurve()
-	b := make([]byte, c.N.BitLen()/8+8)
-	if _, err := io.ReadFull(rand.Reader, b); err != nil {
-		return nil, err
-	}
+c := NewEllipticCurve()
+b := make([]byte, c.N.BitLen()/8+8)
+if _, err := io.ReadFull(rand.Reader, b); err != nil {
+return nil, err
+}
 
-	d := new(big.Int).SetBytes(b)
-	d.Mod(d, new(big.Int).Sub(c.N, big.NewInt(1)))
-	d.Add(d, big.NewInt(1))
+d := new(big.Int).SetBytes(b)
+d.Mod(d, new(big.Int).Sub(c.N, big.NewInt(1)))
+d.Add(d, big.NewInt(1))
 
-	p := &PrivateKey{b: d.Bytes()}
-	return p, nil
+p := &PrivateKey{b: d.Bytes()}
+return p, nil
 }
 
 // NewEllipticCurve returns a ready to use EllipticCurve with preconfigured
 // fields for the NEO protocol.
 func NewEllipticCurve() EllipticCurve {
-	c := EllipticCurve{}
+c := EllipticCurve{}
 
-	c.P, _ = new(big.Int).SetString(
-		"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16,
-	)
-	c.A, _ = new(big.Int).SetString(
-		"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16,
-	)
-	c.B, _ = new(big.Int).SetString(
-		"5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B", 16,
-	)
-	c.G.X, _ = new(big.Int).SetString(
-		"6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296", 16,
-	)
-	c.G.Y, _ = new(big.Int).SetString(
-		"4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5", 16,
-	)
-	c.N, _ = new(big.Int).SetString(
-		"FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16,
-	)
-	c.H, _ = new(big.Int).SetString("01", 16)
+c.P, _ = new(big.Int).SetString(
+	"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16,
+)
+c.A, _ = new(big.Int).SetString(
+	"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16,
+)
+c.B, _ = new(big.Int).SetString(
+	"5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B", 16,
+)
+c.G.X, _ = new(big.Int).SetString(
+	"6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296", 16,
+)
+c.G.Y, _ = new(big.Int).SetString(
+	"4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5", 16,
+)
+c.N, _ = new(big.Int).SetString(
+	"FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16,
+)
+c.H, _ = new(big.Int).SetString("01", 16)
 
-	return c
+return c
 }
 //}
 
@@ -241,7 +238,7 @@ func NewEllipticCurve() EllipticCurve {
 func main() {
 	privateKey, err := NewPrivateKey()
 	if err != nil {
-		log.Fatal(err)
+	log.Fatal(err)
 	}
 	fmt.Println(hex.EncodeToString(privateKey.b))
 }
@@ -258,51 +255,51 @@ func main() {
 === 秘密鍵から公開鍵の生成
 
 //emlist{
-	// PublicKey derives the public key from the private key.
+// PublicKey derives the public key from the private key.
 func (p *PrivateKey) PublicKey() ([]byte, error) {
-	var (
-		c = NewEllipticCurve()
-		q = new(big.Int).SetBytes(p.b)
-	)
+var (
+	c = NewEllipticCurve()
+	q = new(big.Int).SetBytes(p.b)
+)
 
-	point := c.ScalarBaseMult(q)
-	if !c.IsOnCurve(point) {
-		return nil, errors.New("failed to derive public key using elliptic curve")
-	}
+point := c.ScalarBaseMult(q)
+if !c.IsOnCurve(point) {
+return nil, errors.New("failed to derive public key using elliptic curve")
+}
 
-	bx := point.X.Bytes()
-	padded := append(
-		bytes.Repeat(
-			[]byte{0x00},
-			32-len(bx),
-		),
-		bx...,
-	)
+bx := point.X.Bytes()
+padded := append(
+	bytes.Repeat(
+		[]byte{0x00},
+		32-len(bx),
+	),
+	bx...,
+)
 
-	prefix := []byte{0x03}
-	if point.Y.Bit(0) == 0 {
-		prefix = []byte{0x02}
-	}
-	b := append(prefix, padded...)
+prefix := []byte{0x03}
+if point.Y.Bit(0) == 0 {
+prefix = []byte{0x02}
+}
+b := append(prefix, padded...)
 
-	return b, nil
+return b, nil
 }
 //}
 
 実際にこの関数を実行してみます。
 //emlist{
-	func main() {
-	privateKey, err := NewPrivateKey()
-	if err != nil {
-		log.Fatal(err)
-	}
+func main() {
+privateKey, err := NewPrivateKey()
+if err != nil {
+log.Fatal(err)
+}
 
-	publicKey, err := privateKey.PublicKey()
-	if err != nil{
-		log.Fatal(err)
-	}
+publicKey, err := privateKey.PublicKey()
+if err != nil{
+log.Fatal(err)
+}
 
-	fmt.Println(hex.EncodeToString(publicKey))
+fmt.Println(hex.EncodeToString(publicKey))
 }
 //}
 
@@ -314,42 +311,42 @@ func (p *PrivateKey) PublicKey() ([]byte, error) {
 
 === RIPEMD-160で公開鍵のハッシュを生成
 //emlist{
-	// Signature creates the signature using the private key.
+// Signature creates the signature using the private key.
 func (p *PrivateKey) Signature() ([]byte, error) {
-	b, err := p.PublicKey()
-	if err != nil {
-		return nil, err
-	}
+b, err := p.PublicKey()
+if err != nil {
+	return nil, err
+}
 
-	b = append([]byte{0x21}, b...)
-	b = append(b, 0xAC)
+b = append([]byte{0x21}, b...)
+b = append(b, 0xAC)
 
-	sha := sha256.New()
-	sha.Write(b)
-	hash := sha.Sum(nil)
+sha := sha256.New()
+sha.Write(b)
+hash := sha.Sum(nil)
 
-	ripemd := ripemd160.New()
-	ripemd.Reset()
-	ripemd.Write(hash)
-	hash = ripemd.Sum(nil)
+ripemd := ripemd160.New()
+ripemd.Reset()
+ripemd.Write(hash)
+hash = ripemd.Sum(nil)
 
-	return hash, nil
+return hash, nil
 }
 //}
 関数名は、signatureとなっていますが、関数内で実行していることは、秘密鍵から公開鍵を生成（前述）して、それを元に公開鍵の20byteのハッシュを生成しています。
 実際にこの関数を実行してみます。
 //emlist{
-	func main() {
-	//ランダムなプライベートキーの生成
-	privateKey, err := NewPrivateKey()
-	if err != nil {
-		log.Fatal(err)
-	}
-	publicKeyHash, err := privateKey.Signature()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(hex.EncodeToString(publickeyHash))
+func main() {
+//ランダムなプライベートキーの生成
+privateKey, err := NewPrivateKey()
+if err != nil {
+log.Fatal(err)
+}
+publicKeyHash, err := privateKey.Signature()
+if err != nil {
+log.Fatal(err)
+}
+fmt.Println(hex.EncodeToString(publickeyHash))
 }
 //}
 
@@ -360,29 +357,30 @@ func (p *PrivateKey) Signature() ([]byte, error) {
 
 === base58でエンコード
 //emlist{
-	// Address derives the public NEO address that is coupled with the private key, and
-// returns it as a string.
+// Address derives the public NEO address that is coupled with the private
+// key, and returns it as a string.
 func (p *PrivateKey) Address() (string, error) {
-	b, err := p.Signature()
-	if err != nil {
-		return "", err
-	}
+b, err := p.Signature()
+if err != nil {
+return "", err
+}
 
-	b = append([]byte{0x17}, b...)
+b = append([]byte{0x17}, b...)
 
-	sha := sha256.New()
-	sha.Write(b)
-	hash := sha.Sum(nil)
+sha := sha256.New()
+sha.Write(b)
+hash := sha.Sum(nil)
 
-	sha.Reset()
-	sha.Write(hash)
-	hash = sha.Sum(nil)
+sha.Reset()
+sha.Write(hash)
+hash = sha.Sum(nil)
 
-	b = append(b, hash[0:4]...)
+b = append(b, hash[0:4]...)
 
-	address := Base58Encode(b)
+address := Base58Encode(b)
 
-	return address, nil
+return address, nil
+}
 //}
 先ほどの'Signature'関数以降をみてみると、base58におけるAに当たる0x17を先頭につけるとともに、checksumとして、4byte分を後半にくっつけていることがわかります。
 最後に、これをbase58でエンコードすることで、NEOのアドレスが生成されます。
@@ -406,338 +404,338 @@ import(
 )
 
 type (
-	// EllipticCurve represents the parameters of a short Weierstrass equation elliptic
-	// curve.
-	EllipticCurve struct {
-		A *big.Int
-		B *big.Int
-		P *big.Int
-		G ECPoint
-		N *big.Int
-		H *big.Int
-	}
+// EllipticCurve represents the parameters of a short Weierstrass equation
+// elliptic curve.
+EllipticCurve struct {
+A *big.Int
+B *big.Int
+P *big.Int
+G ECPoint
+N *big.Int
+H *big.Int
+}
 
-	// ECPoint represents a point on the EllipticCurve.
-	ECPoint struct {
-		X *big.Int
-		Y *big.Int
-	}
+// ECPoint represents a point on the EllipticCurve.
+ECPoint struct {
+X *big.Int
+Y *big.Int
+}
 )
 
 type PrivateKey struct {
-	b []byte
+b []byte
 }
 
 func main() {
-	//ランダムなプライベートキーの生成
-	privateKey, err := NewPrivateKey()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(hex.EncodeToString(privateKey.b))
+//ランダムなプライベートキーの生成
+privateKey, err := NewPrivateKey()
+if err != nil {
+log.Fatal(err)
+}
+fmt.Println(hex.EncodeToString(privateKey.b))
 
-	//プライベートキーからアドレスの生成
-	//1. PrivateKey→PublicKey
-	//2. PublicKeyHashの生成（20byteに圧縮）
-	//3. versionの追加
-	//4. checksumの追加
-	//5. base58でエンコード
-	address, err := privateKey.Address()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(address)
+//プライベートキーからアドレスの生成
+//1. PrivateKey→PublicKey
+//2. PublicKeyHashの生成（20byteに圧縮）
+//3. versionの追加
+//4. checksumの追加
+//5. base58でエンコード
+address, err := privateKey.Address()
+if err != nil {
+log.Fatal(err)
+}
+fmt.Println(address)
 }
 
 
 func NewPrivateKey() (*PrivateKey, error) {
-	c := NewEllipticCurve()
-	b := make([]byte, c.N.BitLen()/8+8)
-	if _, err := io.ReadFull(rand.Reader, b); err != nil {
-		return nil, err
-	}
+c := NewEllipticCurve()
+b := make([]byte, c.N.BitLen()/8+8)
+if _, err := io.ReadFull(rand.Reader, b); err != nil {
+return nil, err
+}
 
-	d := new(big.Int).SetBytes(b)
-	d.Mod(d, new(big.Int).Sub(c.N, big.NewInt(1)))
-	d.Add(d, big.NewInt(1))
+d := new(big.Int).SetBytes(b)
+d.Mod(d, new(big.Int).Sub(c.N, big.NewInt(1)))
+d.Add(d, big.NewInt(1))
 
-	p := &PrivateKey{b: d.Bytes()}
-	return p, nil
+p := &PrivateKey{b: d.Bytes()}
+return p, nil
 }
 
 // NewEllipticCurve returns a ready to use EllipticCurve with preconfigured
 // fields for the NEO protocol.
 func NewEllipticCurve() EllipticCurve {
-	c := EllipticCurve{}
+c := EllipticCurve{}
 
-	c.P, _ = new(big.Int).SetString(
-		"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16,
-	)
-	c.A, _ = new(big.Int).SetString(
-		"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16,
-	)
-	c.B, _ = new(big.Int).SetString(
-		"5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B", 16,
-	)
-	c.G.X, _ = new(big.Int).SetString(
-		"6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296", 16,
-	)
-	c.G.Y, _ = new(big.Int).SetString(
-		"4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5", 16,
-	)
-	c.N, _ = new(big.Int).SetString(
-		"FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16,
-	)
-	c.H, _ = new(big.Int).SetString("01", 16)
+c.P, _ = new(big.Int).SetString(
+	"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16,
+)
+c.A, _ = new(big.Int).SetString(
+	"FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFC", 16,
+)
+c.B, _ = new(big.Int).SetString(
+	"5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B", 16,
+)
+c.G.X, _ = new(big.Int).SetString(
+	"6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296", 16,
+)
+c.G.Y, _ = new(big.Int).SetString(
+	"4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5", 16,
+)
+c.N, _ = new(big.Int).SetString(
+	"FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16,
+)
+c.H, _ = new(big.Int).SetString("01", 16)
 
-	return c
+return c
 }
 
-// Address derives the public NEO address that is coupled with the private key, and
-// returns it as a string.
+// Address derives the public NEO address that is coupled with the private
+// key, and returns it as a string.
 func (p *PrivateKey) Address() (string, error) {
-	b, err := p.Signature()
-	if err != nil {
-		return "", err
-	}
+b, err := p.Signature()
+if err != nil {
+return "", err
+}
 
-	b = append([]byte{0x17}, b...)
+b = append([]byte{0x17}, b...)
 
-	sha := sha256.New()
-	sha.Write(b)
-	hash := sha.Sum(nil)
+sha := sha256.New()
+sha.Write(b)
+hash := sha.Sum(nil)
 
-	sha.Reset()
-	sha.Write(hash)
-	hash = sha.Sum(nil)
+sha.Reset()
+sha.Write(hash)
+hash = sha.Sum(nil)
 
-	b = append(b, hash[0:4]...)
+b = append(b, hash[0:4]...)
 
-	address := Base58Encode(b)
+address := Base58Encode(b)
 
-	return address, nil
+return address, nil
 }
 
 // Signature creates the signature using the private key.
 func (p *PrivateKey) Signature() ([]byte, error) {
-	b, err := p.PublicKey()
-	if err != nil {
-		return nil, err
-	}
+b, err := p.PublicKey()
+if err != nil {
+return nil, err
+}
 
-	b = append([]byte{0x21}, b...)
-	b = append(b, 0xAC)
+b = append([]byte{0x21}, b...)
+b = append(b, 0xAC)
 
-	sha := sha256.New()
-	sha.Write(b)
-	hash := sha.Sum(nil)
+sha := sha256.New()
+sha.Write(b)
+hash := sha.Sum(nil)
 
-	ripemd := ripemd160.New()
-	ripemd.Reset()
-	ripemd.Write(hash)
-	hash = ripemd.Sum(nil)
+ripemd := ripemd160.New()
+ripemd.Reset()
+ripemd.Write(hash)
+hash = ripemd.Sum(nil)
 
-	return hash, nil
+return hash, nil
 }
 
 // PublicKey derives the public key from the private key.
 func (p *PrivateKey) PublicKey() ([]byte, error) {
-	var (
-		c = NewEllipticCurve()
-		q = new(big.Int).SetBytes(p.b)
-	)
+var (
+c = NewEllipticCurve()
+q = new(big.Int).SetBytes(p.b)
+)
 
-	point := c.ScalarBaseMult(q)
-	if !c.IsOnCurve(point) {
-		return nil, errors.New("failed to derive public key using elliptic curve")
-	}
-
-	bx := point.X.Bytes()
-	padded := append(
-		bytes.Repeat(
-			[]byte{0x00},
-			32-len(bx),
-		),
-		bx...,
-	)
-
-	prefix := []byte{0x03}
-	if point.Y.Bit(0) == 0 {
-		prefix = []byte{0x02}
-	}
-	b := append(prefix, padded...)
-
-	return b, nil
+point := c.ScalarBaseMult(q)
+if !c.IsOnCurve(point) {
+return nil, errors.New("failed to derive public key using elliptic curve")
 }
 
-// Base58Encode encodes a byte slice to be a base58 encoded string.
+bx := point.X.Bytes()
+padded := append(
+	bytes.Repeat(
+		[]byte{0x00},
+		32-len(bx),
+	),
+	bx...,
+)
+
+prefix := []byte{0x03}
+if point.Y.Bit(0) == 0 {
+prefix = []byte{0x02}
+}
+b := append(prefix, padded...)
+
+return b, nil
+}
+
+//Base58Encode encodes a byte slice to be a base58 encoded string.
 func Base58Encode(bytes []byte) string {
-	var (
-		lookupTable = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-		x           = new(big.Int).SetBytes(bytes)
-		r           = new(big.Int)
-		m           = big.NewInt(58)
-		zero        = big.NewInt(0)
-		encoded     string
-	)
+var (
+lookupTable = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+x           = new(big.Int).SetBytes(bytes)
+r           = new(big.Int)
+m           = big.NewInt(58)
+zero        = big.NewInt(0)
+encoded     string
+)
 
-	for x.Cmp(zero) > 0 {
-		x.QuoRem(x, m, r)
-		encoded = string(lookupTable[r.Int64()]) + encoded
-	}
+for x.Cmp(zero) > 0 {
+x.QuoRem(x, m, r)
+encoded = string(lookupTable[r.Int64()]) + encoded
+}
 
-	return encoded
+return encoded
 }
 
 // ScalarBaseMult computes Q = k * G on EllipticCurve ec.
 func (c *EllipticCurve) ScalarBaseMult(k *big.Int) (Q ECPoint) {
-	return c.ScalarMult(k, c.G)
+return c.ScalarMult(k, c.G)
 }
 
 // ScalarMult computes Q = k * P on EllipticCurve ec.
 func (c *EllipticCurve) ScalarMult(k *big.Int, P ECPoint) (Q ECPoint) {
-	// Implementation based on pseudocode here:
-	// https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Montgomery_ladder
-	var R0 ECPoint
-	var R1 ECPoint
+// Implementation based on pseudocode here:
+// https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication
+var R0 ECPoint
+var R1 ECPoint
 
-	R0.X = nil
-	R0.Y = nil
-	R1.X = new(big.Int).Set(P.X)
-	R1.Y = new(big.Int).Set(P.Y)
+R0.X = nil
+R0.Y = nil
+R1.X = new(big.Int).Set(P.X)
+R1.Y = new(big.Int).Set(P.Y)
 
-	for i := c.N.BitLen() - 1; i >= 0; i-- {
-		if k.Bit(i) == 0 {
-			R1 = c.Add(R0, R1)
-			R0 = c.Add(R0, R0)
-		} else {
-			R0 = c.Add(R0, R1)
-			R1 = c.Add(R1, R1)
-		}
+for i := c.N.BitLen() - 1; i >= 0; i-- {
+	if k.Bit(i) == 0 {
+	R1 = c.Add(R0, R1)
+	R0 = c.Add(R0, R0)
+	} else {
+	R0 = c.Add(R0, R1)
+	R1 = c.Add(R1, R1)
 	}
-	return R0
+}
+return R0
 }
 
 // IsOnCurve checks if point P is on EllipticCurve ec.
 func (c *EllipticCurve) IsOnCurve(P ECPoint) bool {
-	if c.IsInfinity(P) {
-		return false
-	}
-	lhs := mulMod(P.Y, P.Y, c.P)
-	rhs := addMod(
-		addMod(
-			expMod(P.X, big.NewInt(3), c.P),
-			mulMod(c.A, P.X, c.P), c.P),
-		c.B, c.P)
+if c.IsInfinity(P) {
+return false
+}
+lhs := mulMod(P.Y, P.Y, c.P)
+rhs := addMod(
+	addMod(
+		expMod(P.X, big.NewInt(3), c.P),
+		mulMod(c.A, P.X, c.P), c.P),
+	c.B, c.P)
 
-	if lhs.Cmp(rhs) == 0 {
-		return true
-	}
-	return false
+if lhs.Cmp(rhs) == 0 {
+return true
+}
+return false
 }
 
 // IsInfinity checks if point P is infinity on EllipticCurve ec.
 func (c *EllipticCurve) IsInfinity(P ECPoint) bool {
-	return P.X == nil && P.Y == nil
+return P.X == nil && P.Y == nil
 }
 
 // addMod computes z = (x + y) % p.
 func addMod(x *big.Int, y *big.Int, p *big.Int) (z *big.Int) {
-	z = new(big.Int).Add(x, y)
-	z.Mod(z, p)
-	return z
+z = new(big.Int).Add(x, y)
+z.Mod(z, p)
+return z
 }
 
 // subMod computes z = (x - y) % p.
 func subMod(x *big.Int, y *big.Int, p *big.Int) (z *big.Int) {
-	z = new(big.Int).Sub(x, y)
-	z.Mod(z, p)
-	return z
+z = new(big.Int).Sub(x, y)
+z.Mod(z, p)
+return z
 }
 
 // mulMod computes z = (x * y) % p.
 func mulMod(x *big.Int, y *big.Int, p *big.Int) (z *big.Int) {
-	n := new(big.Int).Set(x)
-	z = big.NewInt(0)
+n := new(big.Int).Set(x)
+z = big.NewInt(0)
 
-	for i := 0; i < y.BitLen(); i++ {
-		if y.Bit(i) == 1 {
-			z = addMod(z, n, p)
-		}
-		n = addMod(n, n, p)
+for i := 0; i < y.BitLen(); i++ {
+	if y.Bit(i) == 1 {
+		z = addMod(z, n, p)
 	}
+	n = addMod(n, n, p)
+}
 
-	return z
+return z
 }
 
 // expMod computes z = (x^e) % p.
 func expMod(x *big.Int, y *big.Int, p *big.Int) (z *big.Int) {
-	z = new(big.Int).Exp(x, y, p)
-	return z
+z = new(big.Int).Exp(x, y, p)
+return z
 }
 
 
 // invMod computes z = (1/x) % p.
 func invMod(x *big.Int, p *big.Int) (z *big.Int) {
-	z = new(big.Int).ModInverse(x, p)
-	return z
+z = new(big.Int).ModInverse(x, p)
+return z
 }
 
 
 // Add computes R = P + Q on EllipticCurve ec.
 func (c *EllipticCurve) Add(P, Q ECPoint) (R ECPoint) {
-	// See rules 1-5 on SEC1 pg.7 http://www.secg.org/collateral/sec1_final.pdf
-	if c.IsInfinity(P) && c.IsInfinity(Q) {
-		R.X = nil
-		R.Y = nil
-	} else if c.IsInfinity(P) {
-		R.X = new(big.Int).Set(Q.X)
-		R.Y = new(big.Int).Set(Q.Y)
-	} else if c.IsInfinity(Q) {
-		R.X = new(big.Int).Set(P.X)
-		R.Y = new(big.Int).Set(P.Y)
-	} else if P.X.Cmp(Q.X) == 0 && addMod(P.Y, Q.Y, c.P).Sign() == 0 {
-		R.X = nil
-		R.Y = nil
-	} else if P.X.Cmp(Q.X) == 0 && P.Y.Cmp(Q.Y) == 0 && P.Y.Sign() != 0 {
-		num := addMod(
-			mulMod(big.NewInt(3),
-				mulMod(P.X, P.X, c.P), c.P),
-			c.A, c.P)
-		den := invMod(mulMod(big.NewInt(2), P.Y, c.P), c.P)
-		lambda := mulMod(num, den, c.P)
-		R.X = subMod(
+// See rules 1-5 on SEC1 pg.7 http://www.secg.org/collateral/sec1_final.pdf
+if c.IsInfinity(P) && c.IsInfinity(Q) {
+	R.X = nil
+	R.Y = nil
+} else if c.IsInfinity(P) {
+	R.X = new(big.Int).Set(Q.X)
+	R.Y = new(big.Int).Set(Q.Y)
+} else if c.IsInfinity(Q) {
+	R.X = new(big.Int).Set(P.X)
+	R.Y = new(big.Int).Set(P.Y)
+} else if P.X.Cmp(Q.X) == 0 && addMod(P.Y, Q.Y, c.P).Sign() == 0 {
+	R.X = nil
+	R.Y = nil
+} else if P.X.Cmp(Q.X) == 0 && P.Y.Cmp(Q.Y) == 0 && P.Y.Sign() != 0 {
+	num := addMod(
+		mulMod(big.NewInt(3),
+			mulMod(P.X, P.X, c.P), c.P),
+		c.A, c.P)
+	den := invMod(mulMod(big.NewInt(2), P.Y, c.P), c.P)
+	lambda := mulMod(num, den, c.P)
+	R.X = subMod(
+		mulMod(lambda, lambda, c.P),
+		mulMod(big.NewInt(2), P.X, c.P),
+		c.P)
+	R.Y = subMod(
+		mulMod(lambda, subMod(P.X, R.X, c.P), c.P),
+		P.Y, c.P)
+} else if P.X.Cmp(Q.X) != 0 {
+	num := subMod(Q.Y, P.Y, c.P)
+	den := invMod(subMod(Q.X, P.X, c.P), c.P)
+	lambda := mulMod(num, den, c.P)
+	R.X = subMod(
+		subMod(
 			mulMod(lambda, lambda, c.P),
-			mulMod(big.NewInt(2), P.X, c.P),
-			c.P)
-		R.Y = subMod(
-			mulMod(lambda, subMod(P.X, R.X, c.P), c.P),
-			P.Y, c.P)
-	} else if P.X.Cmp(Q.X) != 0 {
-		num := subMod(Q.Y, P.Y, c.P)
-		den := invMod(subMod(Q.X, P.X, c.P), c.P)
-		lambda := mulMod(num, den, c.P)
-		R.X = subMod(
-			subMod(
-				mulMod(lambda, lambda, c.P),
-				P.X, c.P),
-			Q.X, c.P)
-		R.Y = subMod(
-			mulMod(lambda,
-				subMod(P.X, R.X, c.P), c.P),
-			P.Y, c.P)
-	} else {
-		panic(fmt.Sprintf("Unsupported point addition: %v + %v", P, Q))
-	}
+			P.X, c.P),
+		Q.X, c.P)
+	R.Y = subMod(
+		mulMod(lambda,
+			subMod(P.X, R.X, c.P), c.P),
+		P.Y, c.P)
+} else {
+	panic(fmt.Sprintf("Unsupported point addition: %v + %v", P, Q))
+}
 
-	return R
+return R
 }
 //}
 
 実際に、最終コードを実行してみると、次のようなNEOのアドレスと秘密鍵が生成されました。
 //cmd{
-	686adb9235d948078b1aa098e50f369fe4df90e96b3bd5abfb8c0cc972b4d359
-	AUFkwd7fqQo7uLVoygvFBys9kTCharg9Tr
+686adb9235d948078b1aa098e50f369fe4df90e96b3bd5abfb8c0cc972b4d359
+AUFkwd7fqQo7uLVoygvFBys9kTCharg9Tr
 //}
 
 このアドレスが機能するか、実際にimportしてみてNEOの送金をしてみたいと思います。
@@ -745,10 +743,7 @@ func (c *EllipticCurve) Add(P, Q ECPoint) (R ECPoint) {
 //indepimage[neoscanTxHistory][neoscanの取引履歴][scale=0.7]
 //indepimage[test-sending][neon-walletの中身][scale=0.7]
 
-無事送信することができました！
-取引履歴は、次のURLでneoscanで確認することができます。
-https://neoscan.io/transaction/1d3783c59b43197ad33a9ce1868dfabc365fea3ed4de4e5050cb6c724a8821ca
+無事送信することができました！取引履歴は、@<href>{https://neoscan.io/transaction/1d3783c59b43197ad33a9ce1868dfabc365fea3ed4de4e5050cb6c724a8821ca, neoscan}で確認することができます。
 
-== その他の章との関連
-NEP6→walletのstarndard
-https://github.com/neo-project/proposals/blob/master/nep-6.mediawiki
+==[column] アドレスの最初の文字「A」の理由
+NEOのアドレスがAから始まるのは、NEOの前身であるAntShareのAからきているといわれています。
