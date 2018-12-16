@@ -180,4 +180,4 @@ C#で書かれた言語をNEOが理解できるようにAVM形式に変換して
 
 Neon-jsの詳しい使い方は下記を参考にしてみてください。
 
-http://cityofzion.io/neon-js/docs/en/installation.html
+@<href>{http://cityofzion.io/neon-js/docs/en/installation.html}
