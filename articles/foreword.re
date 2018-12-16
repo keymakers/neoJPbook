@@ -15,8 +15,8 @@
  * tomoaki25official
  * ookimaki
 
-=== 参考文献
-TODO 各章ごとの参考文献などをまとめる（巻末でもok）
-
-Mastering Bitcoin by Andreas M. Antonopoulos LLC https://bitcoinbook.info
-Copyright 2016, Andreas M. Antonopoulos LLC
+#@# === 参考文献
+#@# TODO 各章ごとの参考文献などをまとめる（巻末でもok）
+#@#
+#@# Mastering Bitcoin by Andreas M. Antonopoulos LLC https://bitcoinbook.info
+#@# Copyright 2016, Andreas M. Antonopoulos LLC
