@@ -75,3 +75,7 @@ $ npm run pdf
 3. 新しいブランチを作成
 4. 内容の変更・追加した点をコミット
 5. 修正した`.re`ファイルごとにpull requestを提出
+
+## ライセンス
+NEO技術書は、次の`Creative Commons`のライセンスに従います。
+[Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/deed.ja)
