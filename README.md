@@ -1,6 +1,8 @@
 # NEO技術書
 本プロジェクトは、`NEO Keymakers Japan`を中心に行われる、NEOの日本人開発者向けの手引書作成プロジェクトです。NEO上で開発を行うにあたり、現状では日本語文献が圧倒的に少ないので、国内におけるNEOの普及はそれほど進んでいないのが実情です。そこで、NEO上での開発参入の敷居を下げるべく、ブロックチェーンに触れたことがある方がスムーズにNEOについて学習していくとともに、Dapps開発等に取り組む上で役に立つような文献を作成します。
 
+[Starting NEO pdf版](https://github.com/keymakers/neoJPbook/blob/1a47b62b258ae6201c1af6d0c0100d2058839f3b/articles/neobook.pdf)
+
 ## 内容
 
 ## フォルダ構成
