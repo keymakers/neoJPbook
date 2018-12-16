@@ -64,23 +64,29 @@ NEOトークンは2つに分割されており、50%はクラウドセールに�
 === NEO Foundation
 Public Key: 024c7b7fb6c310fccf1ba33b082519d82964ea93868d676662d4a59ad548df0e7d
 
-NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能经济）を実現するために開発を行っています。NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立された。City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
+NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能経済）を実現するために開発を行っています。NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立された。City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
 
 twitter: @<href>{https://twitter.com/neo_blockchain}
+
 facebook: @<href>{https://www.facebook.com/NEOSmartEcon}
+
 github: @<href>{https://github.com/neo-project}
 
 === CITY OF ZION
 Public Key: 025bdf3f181f53e9696227843950deb72dcd374ded17c057159513c3d0abe20b64
+
 Website: @<href>{http://cityofzion.io/}
-E-mail: @<href>{council@cityofzion.io}
+
+E-mail: council@cityofzion.io
 
 City of Zionはオープンソース開発、デザイン、翻訳などを行いNEOコアチームとエコシステムを開発しているグループです。
 
 === KPN
 Public Key: 035e819642a8915a2572f972ddbdbe3042ae6437349295edce9bdc3b8884bbf9a3
+
 Website: @<href>{https://www.kpn.com}
-E-mail: @<href>{DLT@KPN.com}
+
+E-mail: DLT@KPN.com
 
 KPNはオランダに拠点をもつ通信会社です。
 
@@ -191,7 +197,7 @@ NEOのプライベートブロックチェーンでは、コンセンサスを�
 virtual machineの作成が完了したら、4つのvartual machineのIP addressを保存してください。このアドレスは後使用します。
 
 === ウォレットを作成する
-最初に4つのウォレットを作成します。それらには、wallet1.db3,wallet2.db3,wallet3.db3,wallet4.db3 という名前をつけます。このステップはローカルのPC画面上もしくはロマンドラインで実行することができます。次のスクリーンショットでどのようにウォレットをコマンドライン上で作成するかが分かると思います。
+最初に4つのウォレットを作成します。それらには、@<code>{wallet1.db3,wallet2.db3,wallet3.db3,wallet4.db3} という名前をつけます。このステップはローカルのPC画面上もしくはロマンドラインで実行することができます。次のスクリーンショットでどのようにウォレットをコマンドライン上で作成するかが分かると思います。
 
 //image[privatechain_3][ブロック同期3]{
 //}
