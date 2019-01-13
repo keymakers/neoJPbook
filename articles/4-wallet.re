@@ -54,23 +54,33 @@ NEONのインストールをする際に、Node v6.11.0と@<href>{https://github
  NEONウォレットは開発アップデートが順次更新されていくので、githubのアカウントより確認ください。
 
 === NEO GUI
-//image[NEO-GUI][ブロック同期1]{
+//image[NEO-GUI][NEO-GUI]{
 //}
 NEO GUIはNEO開発者向けのデスクトップウォレットです。これによってユーザーはグラフィカルユーザーインターフェーズとやり取りを行いながら開発をすることができます。
+現在サポートされているOSは、windowsのみです。NEO-GUIのインストールは次のリンクより可能です。
+
+@<href>{https://github.com/neo-project/neo-gui/releases}
 
 === NEO Tracker
-//image[NEO-Tracker][ブロック同期1]{
+//image[NEO-Tracker][NEO-Tracker]{
 //}
-NEO Trackerウォレットはウェブベースのウォレットです。Javascriptによって開発されており、オープンソースプロジェクトとなっています。NEOとGASの受信、送信、保存ができ、ユーザーフレンドリーなアプリケーションとなっています。
+NEO Trackerウォレットはブラウザベースのウォレットです。Javascriptによって開発されており、オープンソースプロジェクトとなっています。NEOとGASの受信、送信、保存ができ、ユーザーフレンドリーなアプリケーションとなっています。
+NEO Trackerウォレットの使用は次のリンクより可能です。
 
-@<href>{https://neotracker.io/, NEO-Tracker, NEO-Tracker}
+@<href>{https://neotracker.io/}
 
 === NEO ウォレット
-//image[NEO-wallet][ブロック同期1]{
+//image[NEO-wallet][NEOウォレット]{
 //}
-NEOウォレットはNEOの開発者コミュニティによって開発されています。プライベートキーをローカル環境で管理できるので、安全性が比較的高くなっています。
+NEOウォレットはNEOの開発者コミュニティによって開発されているブラウザwalletです。プライベートキーをローカル環境で管理できるので、安全性が比較的高くなっています。
+NEOウォレットの使用は次のリンクより可能です。
+
+@<href>{https://neowallet.cn/}
 
 === NEO CLI
-//image[NEO-CLI][ブロック同期1]{
+//image[NEO-CLI][NEO CLI]{
 //}
-NEO CLIはNEOの開発者コミュニティーによって開発されています。こちらはコマンドライン上での操作となるため、上級者むけのウォレットです。現在、LinuxとWindowsのみの対応となっています。
+NEO CLIはNEOの開発者コミュニティーによって開発されています。こちらはコマンドライン上での操作となるため、上級者むけのウォレットです。
+NEO CLIのインストールは次のリンクより可能です。
+
+@<href>{https://github.com/neo-project/neo-cli/releases}
