@@ -111,27 +111,29 @@ ClaimTransactionは分配するためのGASをInputとして持ちます。（@<
 34*x	Claims	tx_in[]		分配するGAS
 //}
 
-EnrollmentTransactionは、登録フォームを表し、トランザクションの提供者をバリデーター候補者として登録するために使用されます。
-EnrollmentTransaction型のトランザクションを作成し、PublicKeyのアドレスにデポジットを送付することで登録が行われます。
-そのため、EnrollmentTransactionは@<table>{tx_type_table5}にあるように、バリデーター候補者のPublicKeyを持ちます。
-バリデーター候補者の登録をキャンセルする場合は、登録しているPublicKeyの残高を0にしてください。
-
-//table[tx_type_table5][EnrollmentTransaction]{
-サイズ	フィールド	データ型	説明
--------------------------------------------------------------
-33	PublicKey	ec_point	バリデーターのPublicKey
-//}
-
-VotingTransactionは、登録フォームのハッシュ値のリストを持ち、
-EnrollmentTransactionで登録されたバリデーター候補者へ投票するために使用されます。（@<table>{tx_type_table6}）
-投票することのできる候補者は、1人以上、1024人以下です。
-このトランザクションのNEOの値が投票の重みとなります。
-
-//table[tx_type_table6][VotingTransaction]{
-サイズ	フィールド	データ型	説明
--------------------------------------------------------------
-32*x	Enrollments	uint256[]	登録フォームのハッシュ値のリスト
-//}
+#@# 現在EnrollmentTransaction/VotingTransaction/AgencyTransactionは"obstacle"であるということで、記述を削除
+#@# -----------------------------------------------------------------
+#@# EnrollmentTransactionは、登録フォームを表し、トランザクションの提供者をバリデーター候補者として登録するために使用されます。
+#@# EnrollmentTransaction型のトランザクションを作成し、PublicKeyのアドレスにデポジットを送付することで登録が行われます。
+#@# そのため、EnrollmentTransactionは@<table>{tx_type_table5}にあるように、バリデーター候補者のPublicKeyを持ちます。
+#@# バリデーター候補者の登録をキャンセルする場合は、登録しているPublicKeyの残高を0にしてください。
+#@#
+#@# //table[tx_type_table5][EnrollmentTransaction]{
+#@# サイズ	フィールド	データ型	説明
+#@# -------------------------------------------------------------
+#@# 33	PublicKey	ec_point	バリデーターのPublicKey
+#@# //}
+#@#
+#@# VotingTransactionは、登録フォームのハッシュ値のリストを持ち、
+#@# EnrollmentTransactionで登録されたバリデーター候補者へ投票するために使用されます。（@<table>{tx_type_table6}）
+#@# 投票することのできる候補者は、1人以上、1024人以下です。
+#@# このトランザクションのNEOの値が投票の重みとなります。
+#@#
+#@# //table[tx_type_table6][VotingTransaction]{
+#@# サイズ	フィールド	データ型	説明
+#@# -------------------------------------------------------------
+#@# 32*x	Enrollments	uint256[]	登録フォームのハッシュ値のリスト
+#@# //}
 
 NEOブロックチェーンに新しいアセットを登録する場合は、RegisterTransaction（@<table>{tx_type_table7}）を使用します。
 RegisterTransactionは、NEOのversion2以降はAsset.CreateAsset関数（@<list>{tx_type_table7_new}, @<table>{tx_type_table7_new}）に置き換わっています。
@@ -195,52 +197,52 @@ Currencyのアセット作成時には、アセットの合計額は制限する
 
 ContractTransactionは、NEOやGASなどのアセットを送るためのもっとも一般的なトランザクションです。
 InputsとOutputsのトランザクションフィールドは、このトランザクションにおいて重要です。
-（例えば、NEOをどれだけ、どのアドレスに対して送信するかが設定されます。）
+（たとえば、NEOをどれだけ、どのアドレスに対して送信するかが設定されます。）
 
-AgencyTransactionにおいて、ValueAssetIdは通貨のアセット（Currency）でなければならず、AssetIdと同じ値を使用することはできません。
-購入リストと販売リストは、それぞれ少なくとも1つの注文を格納する必要があります。
-トランザクションには全く未取引である注文は含めることはできませんが、部分的に取引が実行されている注文であれば可能です。
-部分的に取引が実行されている注文では、最低価格をつける必要があります。
-買い注文では顧客が指定した価格より低い値段でトランザクションを実行することができ、反対に売り注文では顧客が指定した価格より高い価格とすることができます。
-
-AgencyTransactionの構造を@<table>{tx_type_table8}に示します。
-
-//tsize[10,20,20,70]
-//table[tx_type_table8][AgencyTransaction]{
-サイズ	フィールド		データ型	説明
--------------------------------------------------------------
-32	AssetId			uint256		アセットID
-32	ValueAssetId	uint256		アセットIDの値
-20	Agent			uint160		エージェントのコントラクトアドレス
-x*x	Orders			order[]		注文のリスト
-1	-				uint8		固定値(1)
-36	SplitOrder		split_order	部分的に実行されている注文のリスト
-//}
-
-トランザクションと共に注文が転送される場合、すでにアセット、Currency、
-エージェントなどの情報が含まれているため、@<table>{tx_type_table8_1}のように注文を圧縮できます。
-
-//table[tx_type_table8_1][Order]{
-サイズ	フィールド		データ型	説明
--------------------------------------------------------------
-8		Amount		int64		注文の量
-8		Price		int64		注文の金額
-20		Client		uint160		顧客のコントラクトアドレス
-34*x	Inputs		tx_in[]		トランザクションの入力
-x*x		Scripts		script[]	この注文を検証するために使用されるスクリプトのリスト
-//}
-
-部分的に実行されている注文について、@<table>{tx_type_table8_2}のようなデータ構造をとります。
-
-//table[tx_type_table8_2][SplitOrder]{
-サイズ	フィールド		データ型	説明
--------------------------------------------------------------
-8		Amount		int64		注文の量
-8		Price		int64		注文の金額
-20		Client		uint160		顧客のコントラクトアドレス
-//}
-
-すべての種類の注文について、金額がプラスの場合は買い、金額がマイナスの場合は販売を意味します。
+#@# AgencyTransactionにおいて、ValueAssetIdは通貨のアセット（Currency）でなければならず、AssetIdと同じ値を使用することはできません。
+#@# 購入リストと販売リストは、それぞれ少なくとも1つの注文を格納する必要があります。
+#@# トランザクションにはまったく未取引である注文は含めることはできませんが、部分的に取引が実行されている注文であれば可能です。
+#@# 部分的に取引が実行されている注文では、最低価格をつける必要があります。
+#@# 買い注文では顧客が指定した価格より低い値段でトランザクションを実行することができ、反対に売り注文では顧客が指定した価格より高い価格とすることができます。
+#@#
+#@# AgencyTransactionの構造を@<table>{tx_type_table8}に示します。
+#@#
+#@# //tsize[10,20,20,70]
+#@# //table[tx_type_table8][AgencyTransaction]{
+#@# サイズ	フィールド		データ型	説明
+#@# -------------------------------------------------------------
+#@# 32	AssetId			uint256		アセットID
+#@# 32	ValueAssetId	uint256		アセットIDの値
+#@# 20	Agent			uint160		エージェントのコントラクトアドレス
+#@# x*x	Orders			order[]		注文のリスト
+#@# 1	-				uint8		固定値(1)
+#@# 36	SplitOrder		split_order	部分的に実行されている注文のリスト
+#@# //}
+#@#
+#@# トランザクションと共に注文が転送される場合、すでにアセット、Currency、
+#@# エージェントなどの情報が含まれているため、@<table>{tx_type_table8_1}のように注文を圧縮できます。
+#@#
+#@# //table[tx_type_table8_1][Order]{
+#@# サイズ	フィールド		データ型	説明
+#@# -------------------------------------------------------------
+#@# 8		Amount		int64		注文の量
+#@# 8		Price		int64		注文の金額
+#@# 20		Client		uint160		顧客のコントラクトアドレス
+#@# 34*x	Inputs		tx_in[]		トランザクションの入力
+#@# x*x		Scripts		script[]	この注文を検証するために使用されるスクリプトのリスト
+#@# //}
+#@#
+#@# 部分的に実行されている注文について、@<table>{tx_type_table8_2}のようなデータ構造をとります。
+#@#
+#@# //table[tx_type_table8_2][SplitOrder]{
+#@# サイズ	フィールド		データ型	説明
+#@# -------------------------------------------------------------
+#@# 8		Amount		int64		注文の量
+#@# 8		Price		int64		注文の金額
+#@# 20		Client		uint160		顧客のコントラクトアドレス
+#@# //}
+#@#
+#@# すべての種類の注文について、金額がプラスの場合は買い、金額がマイナスの場合は販売を意味します。
 
 PublishTransactionは、version2以降においてContract.Create関数（@<list>{tx_type_table9}, @<table>{tx_type_table9}）に置き換わっています。
 
@@ -280,6 +282,7 @@ InvocationTransaction@<table>{tx_type_table10}に示します。
 x		Script	uint8[]		スマートコントラクトのスクリプトにより呼び出されます
 8		Gas		int64		スマートコントラクトを実行するのに必要なコストです
 //}
+
 
 
 === トランザクションの属性（Attributes）
@@ -327,7 +330,7 @@ CertUrl、DescriptionUrl、Description、Remark-Remark15において、データ
 === トランザクションの出力
 
 トランザクションの出力には、@<table>{tx_output}に示す3つのフィールドがあります。
-各トランザクションは最大65536のOutputを持つことができます。
+各トランザクションは最大65536のOutputをもつことができます。
 
 //table[tx_output][トランザクションの出力]{
 サイズ	フィールド		データ型	説明
@@ -337,6 +340,23 @@ CertUrl、DescriptionUrl、Description、Remark-Remark15において、データ
 20		ScriptHash	uint160		宛先のアドレス
 //}
 
+==[column] NEO3.0ではTransactionの種類を簡素化する方向へ
+今まで見てきたように、NEO 2.xでは、次のようにさまざまな種類のトランザクションがあります。
+
+ * MinerTransaction
+ * IssueTransaction
+ * ClaimTransaction
+ * EnrollmentTransaction
+ * RegisterTransaction
+ * ContractTransaction
+ * StateTransaction
+ * PublishTransaction
+ * InvocationTransaction
+
+しかしながら、それらのほとんどは時代遅れであり、多くのタイプのトランザクションはスマートコントラクトで簡単に実装することができます。
+保持する必要がある唯一のものはInvocationTransactionです。
+
+参考:@<href>{https://github.com/neo-project/neo/issues/327}
 
 == NEO scan
 
@@ -346,7 +366,7 @@ NEO scanを利用すると、Web上で瞬時にトランザクションの確認
 NEO SCAN APIではWeb APIを提供しており、プログラムに組み込んでNEOのトランザクションを参照させることが可能です。
 NEO SCAN APIの仕様については下記ページを参照してください
 
-https://neoscan.io/docs/index.html
+@<href>{https://neoscan.io/docs/index.html}
 
 
 == 悪意のあるトランザクションに対する取り組み
@@ -366,10 +386,10 @@ MaxFreeTransactionsPerBlockが20で、各ブロックのトランザクション
 そのノードは他のノードより高い優先度で処理されます。
 
 トランザクションの手数料の額は、どのぐらい優先度をあげて早く取引を完了したいかによって変わりますが、一般には1 satoshi gas程度です。
-トランザクションの手数料を払うかどうかの決定には、ノードのメモリプールの状態を確認しても良いでしょう。
+トランザクションの手数料を払うかどうかの決定には、ノードのメモリプールの状態を確認してもよいでしょう。
 ノードのメモリプールの状態は、NEO-CLIのgetrawmempool関数によって取得することができます。
 
-http://docs.neo.org/en-us/node/cli/2.7.6/api/getrawmempool.html
+@<href>{http://docs.neo.org/en-us/node/cli/2.7.6/api/getrawmempool.html}
 
 NEOチームでは、ユーザーが取引所からNEOを引き出す際に、取引所が手数料を追加することを推奨しています。
 また、ウォレットに手数料を設定する機能をつけることを推奨しており、これによってユーザーは簡単に手数料を使用した取引が行うことが可能です。

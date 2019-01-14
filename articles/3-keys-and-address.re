@@ -153,15 +153,24 @@ NEOのアドレスは、`A`から始まる34桁の文字列の羅列になりま
 AXJAtEWGNW3EbgJZxoYDe9tL7CafDqdYKY
 //}
 
-これからこのAから始まるNEOアドレスの生成方法をCity Of ZionがGolangで実装した@<href>{https://github.com/CityOfZion/neo-go, Neo-Go}のパッケージを元に辿っていきたいと思います。
+これから、City Of ZionがGolangで実装したNeo-Goのパッケージを元にAから始まるNEOアドレスの生成方法を辿っていきたいと思います。
+参考にしたCity Of Zionのパッケージは次のとおりです。
+
+Neo-Go: @<href>{https://github.com/CityOfZion/neo-go}@<br>{}
+
+また、本章で使用したコードは、全てgithub上に掲載していますので、そちらも合わせてご確認ください。
+
+@<href>{https://github.com/keymakers/neoJPbook/blob/master/code/address/main.go}
+
 
 NEOのアドレス生成は、次の手順で達成されます。
- 1. 秘密鍵（PrivateKey）の生成
- 2. 楕円曲線暗号の仕組みを利用して秘密鍵から公開鍵（PublicKey）の生成
- 3. RIPEMD-160で公開鍵のハッシュを生成
- 3. version byteをつける（NEOアドレスの'A'に該当する)
- 4. checksumをつける
- 5. base58でencodeする
+
+ 1. 秘密鍵（PrivateKey）の生成@<br>{}
+ 2. 楕円曲線暗号の仕組みを利用して秘密鍵から公開鍵（PublicKey）の生成@<br>{}
+ 3. RIPEMD-160で公開鍵のハッシュを生成@<br>{}
+ 3. version byteをつける（NEOアドレスの'A'に該当する)@<br>{}
+ 4. checksumをつける@<br>{}
+ 5. base58でencodeする@<br>{}
 
 
 ここでは、すでに準備されている楕円曲線上の点を選びます。

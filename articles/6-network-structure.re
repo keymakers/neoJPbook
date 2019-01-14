@@ -1,13 +1,17 @@
 = NEOネットワーク
 #@#担当者:CryptoAge
-== コンセンサスノード
-コンセンサスノードには2種類あり、候補ノード（candidate node)とコンセンサスノード（consensus node)があります。これは前章のコンセンサスアルゴリズムであるdBFTに準拠しているためです。
+//lead{
+NEOでは、ブロックを生成を行う上でコンセンサスノードと呼ばれる複数のノードによって合意形成を行います。
+本章では、現在のコンセンサスノードの概要やこれからコンセンサスノードになるための手順について解説していきます。
+//}
 
 == オフチェーンガバナンス
-オフチェーンガバナンスは通常NEOファウンデーションによって行われます。現在のコンセンサスノードをマネジメントするだけではなく、NEOのプロモーションをしたりコアプロジェクトをサポートしたりしています。
+オフチェーンガバナンスは通常NEOファウンデーションによって行われます。
+現在のコンセンサスノードをマネジメントするだけではなく、NEOのプロモーションをしたりコアプロジェクトをサポートしたりしています。
 
 == オンチェーンガバナンス
-現在、メインネットではコンセンサスノードは7つあり、NEO Foundationが6つのコンセンサスノードを持ち、City of Zionが1つのコンセンサスノードを持っています。テストネットでは、NEO Foundationが2つ、NEO Global Developmentが1つ、CityOfZionが2つ、KPNは1つ、Swisscomが1つを持っています。
+現在、メインネットではコンセンサスノードは7つあり、NEO Foundationが5つのコンセンサスノードを持ち、City of ZionとKPNが1つずつコンセンサスノードを持っています。
+そのコンセンサスノードになる前のノードを候補ノード（candidate node)と呼び、現在4つの候補ノードがあります。
 
 NEOには2つのトークンがあります。1つはNEO、もう1つはGASと表されるNeo Gasです。NEOの総量は100,000,000トークンであり、分割することはできません。
 
@@ -21,7 +25,7 @@ NEOトークンは2つに分割されており、50%はクラウドセールに�
  * 15% : 不遇の自体に対する備え
  * 15% : NEO上のプロジェクトに対する投資
 
-@<href>{https://github.com/neo-ngd/reference/blob/master/How%20To%20Become%20A%20Consensus%20Nodev1.2.md}
+@<href>{https://github.com/neo-ngd/reference/blob/master/How-To-Become-NEO-Consensus-Nodev1.4.md}
 
 == コンセンサスノードへのなり方
 オンチェーン、オフチェーンでのコンセンサスノードのなり方があります。
@@ -64,7 +68,9 @@ NEOトークンは2つに分割されており、50%はクラウドセールに�
 === NEO Foundation
 Public Key: 024c7b7fb6c310fccf1ba33b082519d82964ea93868d676662d4a59ad548df0e7d
 
-NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能経済）を実現するために開発を行っています。NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立された。City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
+NEOブロックチェーン運営主体。NPO法人でありSmart Economy（智能経済）を実現するために開発を行っています。
+NEOファウンデーションはNEO Global DevelopmentとNEO Global Capitalにより設立されました。
+City of ZionやNewEconoLab、NeoResearchなどに経済的な資金提供を行っています。
 
 twitter: @<href>{https://twitter.com/neo_blockchain}
 
@@ -125,7 +131,7 @@ NEOブロックチェーンにおいて、ブロックの生成速度は15〜20�
 
 ==== パブリックキーを確認する
 アドレスとパブリックキーはことなります。パブリックキーはプライベートキーを表示している時に見ることが出いますが、プライベートキーをシェアするとアドレスの残高から通貨を引き出せるようになるので、他の人にシェアしないようにしましょう。
-//image[neo_gas_0][ブロック同期1]{
+//image[neo_gas_0][パブリックキーの確認]{
 //}
 
 === リクエストフォームに回答する
@@ -135,7 +141,7 @@ NEOブロックチェーンにおいて、ブロックの生成速度は15〜20�
 アセットにアクセスするために、自身のNEO-GUIでウォレット内に"Multi-party signed address"を作成します。
 
 NEO-GUI上でCreate Contract Addressを押しMulti-Signatureを選択します。
-//image[neo_gas_1][ブロック同期1]{
+//image[neo_gas_1][NEO-GUIでの操作1]{
 //}
 
 パブリックキーのリストから、署名に必要なキーを選択します。
@@ -146,7 +152,7 @@ confirmを押します。
 
 指定したEmailに紐付いたcontractアドレスが作成され、アカウントのページに表示されます。
 
-//image[neo_gas_2][ブロック同期1]{
+//image[neo_gas_2][NEO-GUIでの操作2]{
 //}
 
 === 他のアカウントのアセットを送信する
@@ -185,26 +191,26 @@ NEOはP2P（Peer to Peer）ネットワーク構造を採用しています。�
 == NEOのノードでプライベートチェーンを構築する
 プライベートチェーンの構築方法とGASとNEOの使用方法を見ていきましょう。
 
-=== Vartual Machineをセッティングする
-NEOのプライベートブロックチェーンでは、コンセンサスを行うために少なくても4つのノードが必要です。今回はデモンストレーションなので、Standard DS1 v2 1 core, 3.5 GB RAM サイズのWindows Vartual MachineをAzure上に構築します。
-//image[privatechain_1][ブロック同期3]{
+=== Virtual Machineをセッティングする
+NEOのプライベートブロックチェーンでは、コンセンサスを行うために少なくても4つのノードが必要です。今回はデモンストレーションなので、Standard DS1 v2 1 core, 3.5 GB RAM サイズのWindows Virtual MachineをAzure上に構築します。
+//image[privatechain_1][プライベートチェーンの構築]{
 //}
 
-クラウドのサーバーにvartual machineを構築する場合、virtual machineの管理画面にログインしてnetwork security groupを作成してください。
+クラウドのサーバーにvirtual machineを構築する場合、virtual machineの管理画面にログインしてnetwork security groupを作成してください。
 
 "network interface" "network security group" "inbound security rules" "add" を port 10331-10334 に加えてください。
 
-virtual machineの作成が完了したら、4つのvartual machineのIP addressを保存してください。このアドレスは後使用します。
+virtual machineの作成が完了したら、4つのvirtual machineのIP addressを保存してください。このアドレスは後使用します。
 
 === ウォレットを作成する
 最初に4つのウォレットを作成します。それらには、@<code>{wallet1.db3,wallet2.db3,wallet3.db3,wallet4.db3} という名前をつけます。このステップはローカルのPC画面上もしくはロマンドラインで実行することができます。次のスクリーンショットでどのようにウォレットをコマンドライン上で作成するかが分かると思います。
 
-//image[privatechain_3][ブロック同期3]{
+//image[privatechain_3][walletの生成]{
 //}
 
 ウォレットを作成することができ、対応するパブリックキーをテキストファイルに保存します
 
-その後、ウォレットを4つのVartual Machineのノードにコピーします。
+その後、ウォレットを4つのVirtual Machineのノードにコピーします。
 
 === configurationファイルを修正する
 ノードの設定ファイルであるprotocol.jsonを開きます。
@@ -261,23 +267,23 @@ CLI Command Referenceを参考にしてください。
 
 上記のコマンドが正常に動作すれば、4つのノードは次のようなコンセンサスプロセスを表示します。
 
-//image[privatechain_8][ブロック同期3]{
+//image[privatechain_8][コンセンサスプロセス]{
 //}
 
 4つのノードは次に見れるように1つの環境が停止しても動き続ける。
 
-//image[privatechain_9][ブロック同期3]{
+//image[privatechain_9][コンセンサスの継続]{
 //}
 
 == 無料のNEOを手に入れる
 Neo-GUIをインストールし、プライベートブロックチェーンにつなぐために、protocol.jsonを修正します。Walletを開き、左上の文字が0でなく、つぎのように表示されていた場合、クライアントはプライベートチェーンに接続されています。
 
-//image[privatechain_12][ブロック同期3]{
+//image[privatechain_12][NEO-GUIでプライベートチェーンに接続]{
 //}
 
 PCクライアントのwallet1.db3を開き、multi-party signatureアドレスを追加します。その後、protocol.jsonに4つのパブリックキーを入力します。マルチシグのミニマムの鍵数を選択（この場合は3つ）します。
 
 Confirmをクリックしメニューバーのwalletをクリックします。そうすると、コントラクトアドレスに100000000NEOが入っていることを確認することができます。
 
-//image[privatechain_14][ブロック同期3]{
+//image[privatechain_14][NEO獲得]{
 //}
