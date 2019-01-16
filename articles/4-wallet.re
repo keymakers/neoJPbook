@@ -30,17 +30,20 @@ NEON Walletはデスクトップウォレットです。NEONウォレットで�
 
 インストール
 
-NEONウォレットは
-@<href>{https://github.com/CityOfZion/neon-wallet/releases, こちら}
-からインストールすることができます。
+NEONウォレットは、次のURLよりダウンロードすることができます。@<br>{}
 
-NEONのインストールをする際に、Node v6.11.0と@<href>{https://github.com/CityOfZion/neon-wallet, yarn}が必要となります。
+@<href>{https://github.com/CityOfZion/neon-wallet/releases}@<br>{}
+
+NEONを手動でインストールをする際に、Node v6.11.0とyarnが必要となります。
 
 実際に開発を行うときには、プロジェクトのルートディレクトリーにて、
 
  * Setup
  ** yarn install
- *** nodeのディペンデンシーをインストールします。エラーが発生してしまった場合には、@<href>{https://github.com/node-hid/node-hid#compiling-from-source, こちら}を確認することでエラーの発生源を特定することができます。
+ *** nodeのディペンデンシーをインストールします。エラーが発生してしまった場合には、次のリンクを確認することでエラーの発生源を特定することができます。
+
+ @<href>{https://github.com/node-hid/node-hid#compiling-from-source}
+
  * ./node_modules/.bin/electron -v
  ** バージョンが1.8.4であることを確認します。起動するまでに10〜15秒ほどの時間がかかります。
  * Developing
@@ -52,6 +55,8 @@ NEONのインストールをする際に、Node v6.11.0と@<href>{https://github
  ** yarn test もしくは、yarn run test-watchでテストを行います。
 
  NEONウォレットは開発アップデートが順次更新されていくので、githubのアカウントより確認ください。
+
+ @<href>{https://github.com/CityOfZion/neon-wallet}
 
 === NEO GUI
 //image[NEO-GUI][NEO-GUI]{
