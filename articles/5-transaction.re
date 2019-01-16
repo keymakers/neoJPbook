@@ -65,6 +65,8 @@ UTXOとは、ブロックチェーン上でまだ使用されていないトラ�
 
 トランザクションのタイプには@<table>{tx_type_table1}のような種類があります。
 
+
+
 //tsize[40,60]
 //table[tx_type_table1][トランザクションのタイプ]{
 名称						説明
@@ -72,16 +74,21 @@ UTXOとは、ブロックチェーン上でまだ使用されていないトラ�
 MinerTransaction		コンセンサストランザクション、バイトチャージ割当を行う
 IssueTransaction		アセット分配を行います。
 ClaimTransaction		GAS配布を行います。
-EnrollmentTransaction	バリデーター候補者として登録します。
-VotingTransaction		バリデーターの投票を行います。
+#@# EnrollmentTransaction	バリデーター候補者として登録します。
+#@# VotingTransaction		バリデーターの投票を行います。
 RegisterTransaction		アセットを登録します。version2以降はAsset.CreateAsset関数に置き換わっています。
 ContractTransaction		最も一般的に使用されるコントラクトトランザクションです。
-AgencyTransaction		トランザクションの委託を行います。
+StateTransaction		validatorの状態の取得/更新時に使用されるトランザクションです。
+#@# AgencyTransaction		トランザクションの委託を行います。
 PublishTransaction		スマートコントラクトトランザクション。version2以降はContract.Create関数に置き換わっています。
 InvocationTransaction	スマートコントラクトトランザクションの呼び出しを行います。
 //}
 
-いくつか代表的なトランザクションについて説明します。
+いくつか代表的なトランザクション@<fn>{transaction}について説明します。
+
+
+//footnote[transaction][参考：validatorの候補者として登録を行うEnrollmentTransactionは廃止予定になっています。また、VotingTransaction/AgencyTransactionもneo-pythonではまだサポートされていますが、NEO-GUIなどのC#で実装されているクライアントでは2016年ごろから廃止されました。]
+
 
 MinerTransactionは、各ブロックのTransactionsのリストの最初に格納され、そのブロックの全ての手数料をブロックの検証を行うバリデーターの報酬にします。
 Nonce（uint32）をもち、Nonceの値はハッシュ値の衝突を避けるのに使用します。（@<table>{tx_type_table2}）
