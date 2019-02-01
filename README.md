@@ -1,5 +1,5 @@
 # NEO技術書
-本プロジェクトは、`NEO Keymakers Japan`を中心に行われる、NEOの日本人開発者向けの手引書作成プロジェクトです。NEO上で開発を行うにあたり、現状では日本語文献が圧倒的に少ないので、国内におけるNEOの普及はそれほど進んでいないのが実情です。そこで、NEO上での開発参入の敷居を下げるべく、ブロックチェーンに触れたことがある方がスムーズにNEOについて学習していくとともに、Dapps開発等に取り組む上で役に立つような文献を作成します。
+本プロジェクトは、`Keymakers`を中心に行われる、NEOの日本人開発者向けの手引書作成プロジェクトです。NEO上で開発を行うにあたり、現状では日本語文献が圧倒的に少ないので、国内におけるNEOの普及はそれほど進んでいないのが実情です。そこで、NEO上での開発参入の敷居を下げるべく、ブロックチェーンに触れたことがある方がスムーズにNEOについて学習していくとともに、Dapps開発等に取り組む上で役に立つような文献を作成します。
 
 [Starting NEO pdf版](./articles/neobook.pdf)
 
@@ -9,17 +9,17 @@
 
 |  章名 | 内容完了 |最終レビュー完了|
 | ---- | ---- | ---- |
-|  Introduction  | ✅ ||
-|  Overview of NEO  |✅||
-|  Keys and Addrerss  | ✅ ||
-|  Wallets  | ✅ ||
-|  Transaction  | ✅ ||
-|  Network structure  |  ✅||
-|  Concensus Algolism  | ✅||
-|  SDK |✅ ||
-|  Smart Contracts |✅ ||
-|  How to start Dapps on NEO|✅ ||
-|  NEP |✅||
+|  Introduction  | ✅ |✅|
+|  Overview of NEO  |✅|✅|
+|  Keys and Addrerss  | ✅ |✅|
+|  Wallets  | ✅ |✅|
+|  Transaction  | ✅ |✅|
+|  Network structure  |  ✅|✅|
+|  Concensus Algolism  | ✅|✅|
+|  SDK |✅ |✅|
+|  Smart Contracts |✅ |✅|
+|  How to start Dapps on NEO|✅ |✅|
+|  NEP |✅|✅|
 
 
 ## 環境構築
@@ -54,7 +54,7 @@ $ npm run pdf
 ## お手伝い
 本プロジェクトは、Githubにてオープンソースで行われているプロジェクトです。あらゆる方からのコメントや貢献、訂正を歓迎いたします。
 
-詳細につきましては、NEO Keymakers Japan[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
+詳細につきましては、Keymakers[Slack](https://join.slack.com/t/neokeymakersjapan/shared_invite/enQtMzg1ODE2MTg2ODAxLTE3M2Q0MzJmNDAxZDQ2ZTgwMTdkYzQwOTgwNTdlOWUzNDYwNzE0MWI3YjBhOGI5YmM2MDFhMmZlY2Q4OGY2NDQ)にてお問い合わせください。
 
 ### Pull requestによる貢献
 
